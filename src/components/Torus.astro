@@ -1,0 +1,77 @@
+<div class='w-full flex justify-center'>
+  <canvas id='torus-canvas'></canvas>
+</div>
+
+<script>
+  import Torus from '../models/Torus'
+  import { Pane } from 'tweakpane'
+
+  const canvas = document.getElementById('torus-canvas') as HTMLCanvasElement
+  const ctx = canvas.getContext('2d')!
+  canvas.width = 600
+  canvas.height = 600
+
+  const pane = new Pane({
+    title: 'Torus',
+    expanded: true
+  })
+
+  const torus = new Torus({
+    context: ctx
+  })
+
+  pane.addBinding(torus, 'xIncrement', {
+    min: 0,
+    max: 0.1,
+    step: 0.001
+  })
+  pane.addBinding(torus, 'yIncrement', {
+    min: 0,
+    max: 0.1,
+    step: 0.001
+  })
+  pane.addBinding(torus, 'thetaIncrement', {
+    min: 0.01,
+    max: 2,
+    step: 0.01
+  })
+  pane.addBinding(torus, 'phiIncrement', {
+    min: 0.01,
+    max: 2,
+    step: 0.01
+  })
+
+  pane.addBinding(torus, 'xRotation', {
+    min: 0,
+    max: Math.PI,
+    step: 0.1
+  })
+  pane.addBinding(torus, 'yRotation', {
+    min: 0,
+    max: Math.PI,
+    step: 0.1
+  })
+
+  pane.addBinding(torus, 'radius1', {
+    min: 0,
+    max: 10,
+    step: 0.1
+  })
+  pane.addBinding(torus, 'radius2', {
+    min: 0,
+    max: 10,
+    step: 0.1
+  })
+  pane.addBinding(torus, 'fieldOfView', {
+    min: 0,
+    max: 1000,
+    step: 1
+  })
+  pane.addBinding(torus, 'distanceTorus', {
+    min: 0,
+    max: 100,
+    step: 1
+  })
+
+  torus.draw()
+</script>
