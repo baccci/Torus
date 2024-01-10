@@ -17,13 +17,14 @@ class Torus {
   public xIncrement = 0
   public yIncrement = 0
   public xRotation = Math.PI / 2
-  public yRotation = Math.PI / 2
+  public yRotation = Math.PI
   public radius1 = 1
   public radius2 = 2
   public fieldOfView = 250
   public distanceTorus = 5
   public thetaIncrement = 0.3
   public phiIncrement = 0.1
+  public cliking = false
 
   constructor({
     context,
@@ -135,6 +136,19 @@ class Torus {
   incrementY() {
     this.yRotation += this.yIncrement
   }
+
+  mouseMove(event: MouseEvent) {
+    if (!this.cliking) return
+
+    // move the center of the torus based on mouse changes of movement
+    this.xRotation += event.movementY / 100
+    this.yRotation += event.movementX / 100
+  }
+
+  setCliking(cliking: boolean) {
+    this.cliking = cliking
+  }
+
 }
 
 export default Torus
