@@ -1,5 +1,9 @@
 <div class='w-full flex justify-center'>
-  <canvas id='torus-canvas'></canvas>
+  <canvas
+    id='torus-canvas'
+    class='w-full max-w-[500px]'
+    width='500px'
+    height='500px'></canvas>
 </div>
 
 <script>
@@ -8,8 +12,6 @@
 
   const canvas = document.getElementById('torus-canvas') as HTMLCanvasElement
   const ctx = canvas.getContext('2d')!
-  canvas.width = 600
-  canvas.height = 600
 
   const pane = new Pane({
     title: 'Torus',

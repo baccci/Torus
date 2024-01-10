@@ -17,7 +17,10 @@ const { title, description } = Astro.props
     <meta name='generator' content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class='h-full z-0'>
+  <body
+    class='h-full z-0 bg-neutral-950 flex flex-col
+  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'
+  >
     <slot class='z-[1]' />
   </body>
 </html>
@@ -39,6 +42,11 @@ const { title, description } = Astro.props
     background-size: 224px;
     height: 100vh;
     width: 100%;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
   }
   code {
     font-family:
