@@ -22,6 +22,8 @@
     context: ctx
   })
 
+  torus.draw()
+
   canvas.addEventListener('mousedown', () => torus.setCliking(true))
   canvas.addEventListener('mouseup', () => torus.setCliking(false))
   canvas.addEventListener('mouseleave', () => torus.setCliking(false))
@@ -81,6 +83,4 @@
     max: 100,
     step: 1
   })
-
-  torus.draw()
 </script>
