@@ -18,7 +18,7 @@ const { title, description } = Astro.props
     <title>{title}</title>
   </head>
   <body
-    class={`h-full w-full bg-neutral-950 overflow-y-auto pb-2 sm:pb-4
+    class={`bg-neutral-950 pb-2 sm:pb-4
   bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]`}
   >
     <slot class='z-[1]' />
@@ -40,13 +40,10 @@ const { title, description } = Astro.props
     font-family: system-ui, sans-serif;
     background: #13151a;
     background-size: 224px;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     margin: 0;
     padding: 0;
-    position: fixed;
-    left: 0;
-    top: 0;
     overflow: auto;
   }
   code {
