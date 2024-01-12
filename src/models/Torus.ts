@@ -106,7 +106,7 @@ export class Torus {
 
         if (luminance > 0) {
           this.context.fillStyle = `rgba(255, 255, 255, ${luminance})`
-          this.context.fillRect(xp, yp, 1.5, 1.5)
+          this.context.fillRect(xp, yp, 2, 2)
         }
       }
     }
