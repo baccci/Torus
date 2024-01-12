@@ -1,22 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Torus from '../components/Torus/Torus.astro'
 import { GithubIcon } from '@/components/GithubIcon'
+import { TorusWrapper } from '@/components/TorusWrapper/TorusWrapper'
 ---
 
-<Layout title='Torus 🍩' description='A simple 3D spinning donut 🤤'>
+<Layout title='Torus 🍩' description='A spinning donut'>
   <main
-    class='w-full pt-4 sm:px-32 sm:pt-16 text-slate-200 flex flex-col gap-y-4 items-center'
+    class='w-full h-auto pt-4 sm:px-32 sm:pt-16 pb-2 sm:pb-4 text-slate-200 flex flex-col items-center'
   >
     <h1
       class='text-3xl sm:text-5xl py-4 sm:py-8 font-bold bg-gradient-to-b from-[#f2f2ff] to-[#1e1e58] bg-clip-text text-transparent'
     >
       Torus
     </h1>
-    <Torus />
+    <TorusWrapper client:load />
   </main>
   <footer
-    class='mt-auto flex justify-center text-slate-300 text-sm items-center py-4'
+    class='mt-auto flex justify-center text-slate-300 text-sm items-center pt-8'
   >
     Made with ❤️ by&nbsp;
     <span class='hover:underline'>
@@ -27,3 +27,4 @@ import { GithubIcon } from '@/components/GithubIcon'
     </span>
   </footer>
 </Layout>
+@/components/TorusWrapper/TorusWrapper @/components/TorusWrapper @/components/TorusWrapper/TorusWrapper

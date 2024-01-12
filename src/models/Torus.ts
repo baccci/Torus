@@ -1,25 +1,25 @@
 export interface TorusArgs {
-  context: CanvasRenderingContext2D
+  context?: CanvasRenderingContext2D | null
   xIncrement?: number,
   yIncrement?: number
   xRotation?: number
   yRotation?: number
-  radius1?: number
-  radius2?: number
+  outerRadius?: number
+  innerRadius?: number
   fieldOfView?: number
   distanceTorus?: number
   thetaIncrement?: number
   phiIncrement?: number
 }
 
-class Torus {
+export class Torus {
   public context: CanvasRenderingContext2D | null = null
   public xIncrement = 0
   public yIncrement = 0
   public xRotation = Math.PI / 2
   public yRotation = Math.PI
-  public radius1 = 1
-  public radius2 = 2
+  public outerRadius = 1
+  public innerRadius = 2
   public fieldOfView = 250
   public distanceTorus = 5
   public thetaIncrement = 0.3
@@ -32,20 +32,20 @@ class Torus {
     yIncrement,
     xRotation,
     yRotation,
-    radius1,
-    radius2,
+    outerRadius,
+    innerRadius,
     fieldOfView,
     distanceTorus,
     thetaIncrement,
     phiIncrement
   }: TorusArgs) {
-    this.context = context
+    this.context = context || this.context
     this.xIncrement = xIncrement || this.xIncrement
     this.yIncrement = yIncrement || this.yIncrement
     this.xRotation = xRotation || this.xRotation
     this.yRotation = yRotation || this.yRotation
-    this.radius1 = radius1 || this.radius1
-    this.radius2 = radius2 || this.radius2
+    this.outerRadius = outerRadius || this.outerRadius
+    this.innerRadius = innerRadius || this.innerRadius
     this.fieldOfView = fieldOfView || this.fieldOfView
     this.distanceTorus = distanceTorus || this.distanceTorus
     this.thetaIncrement = thetaIncrement || this.thetaIncrement
@@ -56,8 +56,8 @@ class Torus {
     if (!this.context) return
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
 
-    const radius1 = this.radius1
-    const radius2 = this.radius2
+    const radius1 = this.outerRadius
+    const radius2 = this.innerRadius
     const fieldOfView = this.fieldOfView // field of view | z' as a constant
     const distanceTorus = this.distanceTorus // distance from viewer to canvas plane
 
@@ -129,15 +129,15 @@ class Torus {
     }
   }
 
-  incrementX() {
+  private incrementX() {
     this.xRotation += this.xIncrement
   }
 
-  incrementY() {
+  private incrementY() {
     this.yRotation += this.yIncrement
   }
 
-  mouseMove(event: MouseEvent) {
+  mouseMove(event: React.MouseEvent<HTMLCanvasElement>) {
     if (!this.cliking) return
 
     // move the center of the torus based on mouse changes of movement
@@ -149,6 +149,51 @@ class Torus {
     this.cliking = cliking
   }
 
+  public setContext(context: CanvasRenderingContext2D | null) {
+    if (!context) return
+    this.context = context
+  }
+
+  public setXIncrement(xIncrement: number) {
+    this.xIncrement = xIncrement
+  }
+
+  public setYIncrement(yIncrement: number) {
+    this.yIncrement = yIncrement
+  }
+
+  public setThetaIncrement(thetaIncrement: number) {
+    this.thetaIncrement = thetaIncrement
+  }
+
+  public setPhiIncrement(phiIncrement: number) {
+    this.phiIncrement = phiIncrement
+  }
+
+  public setXRotation(xRotation: number) {
+    this.xRotation = xRotation
+  }
+
+  public setYRotation(yRotation: number) {
+    this.yRotation = yRotation
+  }
+
+  public setOuterRadius(outerRadius: number) {
+    this.outerRadius = outerRadius
+  }
+
+  public setInnerRadius(innerRadius: number) {
+    this.innerRadius = innerRadius
+  }
+
+  public setFieldOfView(fieldOfView: number) {
+    this.fieldOfView = fieldOfView
+  }
+
+  public setDistanceTorus(distanceTorus: number) {
+    this.distanceTorus = distanceTorus
+  }
 }
+
 
 export default Torus
