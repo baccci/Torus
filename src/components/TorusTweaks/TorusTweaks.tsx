@@ -23,16 +23,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
     innerRadius,
     fieldOfView,
     distanceTorus,
-    handleChangeXFixedValue,
-    handleChangeYFixedValue,
-    handleChangeXMovement,
-    handleChangeYMovement,
-    handleChangeThethaIncrement,
-    handleChangePhiIncrement,
-    handleOuterRadiusChange,
-    handleInnerRadiusChange,
-    handleFieldOfViewChange,
-    handleDistanceTorusChange
+    ...events
   } = useTweaks(torus)
 
   return (
@@ -61,7 +52,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={PI}
                 step={0.001}
                 label='X fixed value'
-                onChange={handleChangeXFixedValue}
+                onChange={events.handleChangeXFixedValue}
               />
             </Range.Root>
             <Range.Root>
@@ -73,7 +64,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={PI}
                 step={0.001}
                 label='Y fixed value'
-                onChange={handleChangeYFixedValue}
+                onChange={events.handleChangeYFixedValue}
               />
             </Range.Root>
           </div>
@@ -87,7 +78,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 step={0.001}
                 label='X movement'
                 aria-label='X movement'
-                onChange={handleChangeXMovement}
+                onChange={events.handleChangeXMovement}
               />
             </Range.Root>
             <Range.Root>
@@ -98,7 +89,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={0.1}
                 step={0.001}
                 label='Y movement'
-                onChange={handleChangeYMovement}
+                onChange={events.handleChangeYMovement}
               />
             </Range.Root>
           </div>
@@ -111,7 +102,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={2}
                 step={0.01}
                 label='Dots per ring'
-                onChange={handleChangeThethaIncrement}
+                onChange={events.handleChangeThethaIncrement}
               />
             </Range.Root>
             <Range.Root>
@@ -122,7 +113,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={2}
                 step={0.01}
                 label='Amount of rings'
-                onChange={handleChangePhiIncrement}
+                onChange={events.handleChangePhiIncrement}
               />
             </Range.Root>
           </div>
@@ -135,7 +126,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={10}
                 step={0.1}
                 label='Outer radius'
-                onChange={handleOuterRadiusChange}
+                onChange={events.handleOuterRadiusChange}
               />
             </Range.Root>
             <Range.Root>
@@ -146,7 +137,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={10}
                 step={0.1}
                 label='Inner radius'
-                onChange={handleInnerRadiusChange}
+                onChange={events.handleInnerRadiusChange}
               />
             </Range.Root>
           </div>
@@ -159,7 +150,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={1000}
                 step={1}
                 label='Field of view'
-                onChange={handleFieldOfViewChange}
+                onChange={events.handleFieldOfViewChange}
               />
             </Range.Root>
             <Range.Root>
@@ -170,7 +161,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
                 max={100}
                 step={1}
                 label='Distance of torus'
-                onChange={handleDistanceTorusChange}
+                onChange={events.handleDistanceTorusChange}
               />
             </Range.Root>
           </div>

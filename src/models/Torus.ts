@@ -54,6 +54,7 @@ export class Torus {
 
   draw() {
     if (!this.context) return
+    console.log('draw')
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
 
     const radius1 = this.outerRadius
@@ -110,8 +111,7 @@ export class Torus {
         }
       }
     }
-
-    requestAnimationFrame(() => this.draw())
+    if (this.xIncrement || this.yIncrement) requestAnimationFrame(this.draw.bind(this))
   }
 
   precomputeTrig() {
@@ -131,10 +131,12 @@ export class Torus {
 
   private incrementX() {
     this.xRotation += this.xIncrement
+
   }
 
   private incrementY() {
     this.yRotation += this.yIncrement
+
   }
 
   mouseMove(event: React.MouseEvent<HTMLCanvasElement>) {
@@ -143,6 +145,7 @@ export class Torus {
     // move the center of the torus based on mouse changes of movement
     this.xRotation += event.movementY / 100
     this.yRotation += event.movementX / 100
+    this.draw()
   }
 
   setCliking(cliking: boolean) {
@@ -152,46 +155,57 @@ export class Torus {
   public setContext(context: CanvasRenderingContext2D | null) {
     if (!context) return
     this.context = context
+    this.draw()
   }
 
   public setXIncrement(xIncrement: number) {
     this.xIncrement = xIncrement
+    this.draw()
   }
 
   public setYIncrement(yIncrement: number) {
     this.yIncrement = yIncrement
+    this.draw()
   }
 
   public setThetaIncrement(thetaIncrement: number) {
     this.thetaIncrement = thetaIncrement
+    this.draw()
   }
 
   public setPhiIncrement(phiIncrement: number) {
     this.phiIncrement = phiIncrement
+    this.draw()
   }
 
   public setXRotation(xRotation: number) {
     this.xRotation = xRotation
+    this.draw()
   }
 
   public setYRotation(yRotation: number) {
     this.yRotation = yRotation
+    this.draw()
   }
 
   public setOuterRadius(outerRadius: number) {
     this.outerRadius = outerRadius
+    this.draw()
   }
 
   public setInnerRadius(innerRadius: number) {
     this.innerRadius = innerRadius
+    this.draw()
   }
 
   public setFieldOfView(fieldOfView: number) {
     this.fieldOfView = fieldOfView
+    this.draw()
   }
 
   public setDistanceTorus(distanceTorus: number) {
     this.distanceTorus = distanceTorus
+    this.draw()
   }
 }
 
