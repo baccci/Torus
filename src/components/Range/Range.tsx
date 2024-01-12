@@ -46,7 +46,7 @@ const forwardRange = React.forwardRef<HTMLInputElement, RangeProps>((
         ref={ref}
         aria-label={ariaLabel}
         className={cn(
-          `w-[300px] appearance-none bg-transparent cursor-pointer transition-all duration-300 group
+          `w-full appearance-none bg-transparent cursor-pointer transition-all duration-300 group min-w-0
           [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-[#676792] [&::-moz-range-track]:h-1
           [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full
           [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:bg-gradient-to-b [&::-moz-range-thumb]:from-[#ebebfb]

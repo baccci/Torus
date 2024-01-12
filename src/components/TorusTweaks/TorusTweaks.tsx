@@ -38,19 +38,20 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
   return (
     <section className='max-w-[100%] mt-4 px-4'>
       <div className={
-        `w-full rounded-2xl p-8 sm:p-14 sm:pb-16 relative bg-slate-900/30 
+        `w-full rounded-2xl p-8 sm:p-14 sm:pb-16 relative bg-slate-900/30 overflow-x-hidden
         before:absolute before:mix-blend-overlay before:left-[0] before:right-[0] before:top-[0] before:[border-width:1px] before:border-white/80 before:[border-bottom:none] before:h-4 before:[border-radius:16px_16px_0_0]
         after:absolute after:mix-blend-overlay after:inset-[16px_0_0_0] after:[border-top:none] after:[border-image:linear-gradient(180deg,hsla(0,0%,100%,.8)_0,transparent_40%)_1] after:pointer-events-none after:border-white/10 after:border-[1px]
         bg-[radial-gradient(91.62%_38.88%_at_1.4%_4.24%,#26263e_0,transparent_100%),radial-gradient(21.88%_21.86%_at_80.72%_42.34%,rgba(7,7,9,0.45)_6.77%,transparent_100%),radial-gradient(24.02%_75.21%_at_82.85%_84.73%,#20202F_5%,transparent_100%)]`
       }>
         <span className={`absolute inset-0 z-[1] pointer-events-none opacity-[0.14] bg-center bg-repeat bg-[url("/images/noise.png")] bg-[length:140px_100px]`}></span>
         <h2 className='mb-8 text-xl sm:text-3xl font-bold text-transparent bg-clip-text 
-        bg-[linear-gradient(352deg,_#16162e_30%,_rgba(170,172,238,1)_100%)]
+        bg-[linear-gradient(352deg,_#16162e_14%,_rgba(170,172,238,1)_100%)]
+        sm:bg-[linear-gradient(352deg,_#16162e_30%,_rgba(170,172,238,1)_100%)]
         '>
           Tweak panel
         </h2>
-        <div className='flex flex-col gap-12'>
-          <div className='flex justify-between gap-8 flex-wrap'>
+        <div className='flex flex-col gap-12 w-full'>
+          <div className='flex justify-between gap-8 flex-wrap w-full'>
             <Range.Root>
               <Range
                 id='x-fixed'

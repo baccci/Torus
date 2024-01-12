@@ -8,7 +8,7 @@ export interface RootProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDi
 
 export const Root: React.FC<RootProps> = ({ className, children }) => {
   return (
-    <div className={cn('flex flex-col', className)}>
+    <div className={cn('flex flex-col w-[300px]', className)}>
       {children}
     </div>
   )
