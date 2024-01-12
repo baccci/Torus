@@ -156,8 +156,8 @@ export class Torus {
     const movementY = touch.pageY - this.previousTouch.pageY
     console.log(movementX, movementY)
 
-    this.xRotation += movementY / 5000
-    this.yRotation += movementX / 5000
+    this.xRotation += movementY / 500
+    this.yRotation += movementX / 500
     this.draw()
   }
 
