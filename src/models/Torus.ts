@@ -25,6 +25,7 @@ export class Torus {
   public thetaIncrement = 0.3
   public phiIncrement = 0.1
   public cliking = false
+  private previousTouch: React.Touch | null = null
 
   constructor({
     context,
@@ -54,7 +55,6 @@ export class Torus {
 
   draw() {
     if (!this.context) return
-    console.log('draw')
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
 
     const radius1 = this.outerRadius
@@ -139,7 +139,7 @@ export class Torus {
 
   }
 
-  mouseMove(event: React.MouseEvent<HTMLCanvasElement>) {
+  public mouseMove(event: React.MouseEvent<HTMLCanvasElement>) {
     if (!this.cliking) return
 
     // move the center of the torus based on mouse changes of movement
@@ -148,7 +148,20 @@ export class Torus {
     this.draw()
   }
 
-  setCliking(cliking: boolean) {
+  public touchMove(event: React.TouchEvent<HTMLCanvasElement>) {
+    if (!this.previousTouch) return this.previousTouch = event.touches[0]
+
+    const touch = event.touches[0]
+    const movementX = touch.pageX - this.previousTouch.pageX
+    const movementY = touch.pageY - this.previousTouch.pageY
+    console.log(movementX, movementY)
+
+    this.xRotation += movementY / 5000
+    this.yRotation += movementX / 5000
+    this.draw()
+  }
+
+  public setCliking(cliking: boolean) {
     this.cliking = cliking
   }
 
