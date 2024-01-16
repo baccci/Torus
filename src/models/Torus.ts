@@ -1,3 +1,6 @@
+import { PI } from '@/constants/constants'
+import { Point } from './Point'
+
 export interface TorusArgs {
   context?: CanvasRenderingContext2D | null
   xIncrement?: number,
@@ -13,19 +16,33 @@ export interface TorusArgs {
 }
 
 export class Torus {
-  public context: CanvasRenderingContext2D | null = null
-  public xIncrement = 0
-  public yIncrement = 0
-  public xRotation = Math.PI / 2
-  public yRotation = Math.PI
-  public outerRadius = 1
-  public innerRadius = 2
-  public fieldOfView = 250
-  public distanceTorus = 5
-  public thetaIncrement = 0.3
-  public phiIncrement = 0.1
-  public cliking = false
+  private context: CanvasRenderingContext2D | null = null
+  private xIncrement = 0
+  private yIncrement = 0
+  private xRotation = PI / 2
+  private yRotation = PI
+  private outerRadius = 1
+  private innerRadius = 2
+  private fieldOfView = 250
+  private distanceTorus = 5
+  private thetaIncrement = 0.3
+  private phiIncrement = 0.1
+  private cliking = false
+  private thetaLimit = PI * 2
+  private phiLimit = PI * 2
+  private zBuffer: number[][] = []
+  private pointSize = 2
+  private zBufferSize = 0
   private previousTouch: React.Touch | null = null
+  private minRed?: number
+  private maxRed?: number
+  private minGreen?: number
+  private maxGreen?: number
+  private minBlue?: number
+  private maxBlue?: number
+  private colored?: boolean
+  private point?: 'square' | 'circle'
+  private luminanceEnhance?: number
 
   constructor({
     context,
@@ -51,11 +68,15 @@ export class Torus {
     this.distanceTorus = distanceTorus || this.distanceTorus
     this.thetaIncrement = thetaIncrement || this.thetaIncrement
     this.phiIncrement = phiIncrement || this.phiIncrement
+
+    this.createZBuffer()
   }
 
   draw() {
     if (!this.context) return
-    this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
+    const { canvas } = this.context
+    this.context.clearRect(0, 0, canvas.width, canvas.height)
+    this.createZBuffer()
 
     const radius1 = this.outerRadius
     const radius2 = this.innerRadius
@@ -67,12 +88,16 @@ export class Torus {
 
     const { cosX, sinX, cosY, sinY } = this.precomputeTrig()
 
-    for (let theta = 0; theta < Math.PI * 2; theta += this.thetaIncrement) {
+    let counter = 0
+
+    for (let theta = 0; theta < this.thetaLimit; theta += this.thetaIncrement) {
       // j <=> theta
       const cosTheta = Math.cos(theta)
       const sinTheta = Math.sin(theta) // cosine theta, sine theta
 
-      for (let phi = 0; phi < Math.PI * 2; phi += this.phiIncrement) {
+      for (let phi = 0; phi < this.phiLimit; phi += this.phiIncrement) {
+
+        counter++
         // i <=> phi
         const sinPhi = Math.sin(phi)
         const cosPhi = Math.cos(phi) // cosine phi, sine phi
@@ -94,8 +119,8 @@ export class Torus {
         const ooz = 1 / z
 
         // x and y projection. note that y is negated here, because y goes up in 3D space but down on 2D displays.
-        const xp = this.context.canvas.width / 2 + fieldOfView * ooz * x // x' = screen space coordinate, translated and scaled to fit our 320x240 canvas element
-        const yp = this.context.canvas.height / 2 - fieldOfView * ooz * y // y' (it's negative here because in our output, positive y goes down but in our 3D space, positive y goes up)
+        const xp: number = this.context.canvas.width / 2 + fieldOfView * ooz * x // x' = screen space coordinate, translated and scaled to fit our 320x240 canvas element
+        const yp: number = this.context.canvas.height / 2 - fieldOfView * ooz * y // y' (it's negative here because in our output, positive y goes down but in our 3D space, positive y goes up)
 
         // luminance, scaled back to 0 to 1
         const luminance =
@@ -105,13 +130,30 @@ export class Torus {
             sinX * sinTheta +
             cosY * (cosX * sinTheta - cosTheta * sinX * sinPhi))
 
-        if (luminance > 0) {
-          this.context.fillStyle = `rgba(255, 255, 255, ${luminance})`
-          this.context.fillRect(xp, yp, 2, 2)
+        if (xp < 0 || xp >= canvas.width || yp < 0 || yp >= canvas.height) continue
+
+        const { x: xTranslated, y: yTranslated } = this.canvasToGrid(xp, yp)
+
+        if (ooz > this.zBuffer[xTranslated][yTranslated]) {
+          this.zBuffer[xTranslated][yTranslated] = ooz
+          const point = new Point({
+            context: this.context
+          })
+
+          point.setProps({
+            xp,
+            yp,
+            z: ooz,
+            luminance,
+            pointSize: this.pointSize
+          })
+          point.draw()
         }
       }
     }
-    if (this.xIncrement || this.yIncrement) requestAnimationFrame(this.draw.bind(this))
+    if (!this.xIncrement && !this.yIncrement) return
+
+    requestAnimationFrame(() => this.draw())
   }
 
   precomputeTrig() {
@@ -129,14 +171,40 @@ export class Torus {
     }
   }
 
-  private incrementX() {
-    this.xRotation += this.xIncrement
+  private createZBuffer() {
+    if (!this.context) return
+    this.zBufferSize = (this.context.canvas.width * this.context.canvas.height) / this.pointSize
+    const gridHalfSize = Math.ceil(Math.sqrt(this.zBufferSize))
 
+    // Create the zBuffer as a 2D array of size gridHalfSize x gridHalfSize
+    this.zBuffer = new Array(gridHalfSize).fill(0).map(() => new Array(gridHalfSize).fill(0))
+  }
+
+  private canvasToGrid(xp: number, yp: number) {
+    if (!this.context) return { x: 0, y: 0 }
+    const canvasWidth = this.context.canvas.width
+    const canvasHeight = this.context.canvas.height
+    const gridWidth = this.zBuffer.length
+    const gridHeight = this.zBuffer[0].length
+
+    const scaleX = canvasWidth / gridWidth
+    const scaleY = canvasHeight / gridHeight
+
+    const gridX = Math.floor(xp / scaleX)
+    const gridY = Math.floor(yp / scaleY)
+
+    return { x: gridX, y: gridY }
+  }
+
+  private incrementX() {
+    const sum = this.xRotation + this.xIncrement
+    if (sum > PI * 2) return this.xRotation = sum - PI * 2
+
+    this.xRotation += this.xIncrement
   }
 
   private incrementY() {
     this.yRotation += this.yIncrement
-
   }
 
   public mouseMove(event: React.MouseEvent<HTMLCanvasElement>) {
@@ -154,10 +222,16 @@ export class Torus {
     const touch = event.touches[0]
     const movementX = touch.pageX - this.previousTouch.pageX
     const movementY = touch.pageY - this.previousTouch.pageY
-    console.log(movementX, movementY)
 
     this.xRotation += movementY / 500
     this.yRotation += movementX / 500
+    this.draw()
+  }
+
+  public setContext(context: CanvasRenderingContext2D | null) {
+    if (!context) return
+    this.context = context
+    this.createZBuffer()
     this.draw()
   }
 
@@ -165,11 +239,6 @@ export class Torus {
     this.cliking = cliking
   }
 
-  public setContext(context: CanvasRenderingContext2D | null) {
-    if (!context) return
-    this.context = context
-    this.draw()
-  }
 
   public setXIncrement(xIncrement: number) {
     this.xIncrement = xIncrement
@@ -182,11 +251,13 @@ export class Torus {
   }
 
   public setThetaIncrement(thetaIncrement: number) {
+    if (thetaIncrement <= 0) return
     this.thetaIncrement = thetaIncrement
     this.draw()
   }
 
   public setPhiIncrement(phiIncrement: number) {
+    if (phiIncrement <= 0) return
     this.phiIncrement = phiIncrement
     this.draw()
   }
@@ -220,6 +291,68 @@ export class Torus {
     this.distanceTorus = distanceTorus
     this.draw()
   }
+
+  public setThetaLimit(thetaLimit: number) {
+    if (thetaLimit <= 0) return
+    this.thetaLimit = thetaLimit
+    this.draw()
+  }
+
+  public setPhiLimit(phiLimit: number) {
+    if (phiLimit <= 0) return
+    this.phiLimit = phiLimit
+    this.draw()
+  }
+
+  public get getXIncrement() {
+    return this.xIncrement
+  }
+
+  public get getYIncrement() {
+    return this.yIncrement
+  }
+
+  public get getXRotation() {
+    return this.xRotation
+  }
+
+  public get getYRotation() {
+    return this.yRotation
+  }
+
+  public get getOuterRadius() {
+    return this.outerRadius
+  }
+
+  public get getInnerRadius() {
+    return this.innerRadius
+  }
+
+  public get getFieldOfView() {
+    return this.fieldOfView
+  }
+
+  public get getDistanceTorus() {
+    return this.distanceTorus
+  }
+
+  public get getThetaIncrement() {
+    return this.thetaIncrement
+  }
+
+  public get getPhiIncrement() {
+    return this.phiIncrement
+  }
+
+  public get getThetaLimit() {
+    return this.thetaLimit
+  }
+
+  public get getPhiLimit() {
+    return this.phiLimit
+  }
+
+
 }
 
 

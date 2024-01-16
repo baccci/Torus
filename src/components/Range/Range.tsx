@@ -1,4 +1,4 @@
-import React, { type DetailedHTMLProps } from 'react'
+import React, { type DetailedHTMLProps, useImperativeHandle } from 'react'
 import { Root } from './Root'
 import { cn } from '@/lib/tailwindClassMerge'
 
@@ -6,8 +6,8 @@ interface RangeProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLInputEle
   min: number
   max: number
   step: number
-  value: number
-  customValueDisplay?: string
+  value?: number
+  customValueDisplay?: string | number
   id: string
   className?: string
   label: React.ReactNode | string
@@ -22,8 +22,11 @@ const forwardRange = React.forwardRef<HTMLInputElement, RangeProps>((
   { min, max, value, step, id, className, label, onChange, 'aria-label': aria, customValueDisplay, ...rest },
   ref
 ) => {
+  const inputRef = React.useRef<HTMLInputElement>(null)
   const labelString = typeof label === 'string' ? label : undefined
   const ariaLabel = aria || labelString
+
+  useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
 
   return (
     <>
@@ -43,7 +46,7 @@ const forwardRange = React.forwardRef<HTMLInputElement, RangeProps>((
         value={value}
         onInput={onChange}
         step={step}
-        ref={ref}
+        ref={inputRef}
         aria-label={ariaLabel}
         className={cn(
           `w-full appearance-none bg-transparent cursor-pointer transition-all duration-300 group min-w-0

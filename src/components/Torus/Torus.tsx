@@ -15,8 +15,8 @@ export const Torus: React.FC<TorusProps> = ({ torus }) => {
 
   torus.draw()
 
-  const handleStopMovement = (e: React.MouseEvent<HTMLCanvasElement>) => torus.setCliking(false)
-  const handleStartMovement = (e: React.MouseEvent<HTMLCanvasElement>) => torus.setCliking(true)
+  const handleStopMovement = () => torus.setCliking(false)
+  const handleStartMovement = () => torus.setCliking(true)
   const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     torus.mouseMove(e)
   }

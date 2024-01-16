@@ -1,58 +1,39 @@
-import type { Torus } from '@/models/Torus'
-import React, { useEffect } from 'react'
-import { HALF_PI, PI, CHANGE_RATE } from '@/constants/constants'
+import { CHANGE_RATE, HALF_PI, PI } from '@/constants/constants'
+import type Torus from '@/models/Torus'
+import React from 'react'
 
 export const useTweaks = (torus: Torus) => {
   const [xFixedValue, setXFixedValue] = React.useState(HALF_PI)
-  const [xFixedValueDisplay, setXFixedValueDisplay] = React.useState<string>(xFixedValue.toString())
-  const [yFixedValue, setYFixedValue] = React.useState(HALF_PI)
-  const [yFixedValueDisplay, setYFixedValueDisplay] = React.useState<string>(xFixedValue.toString())
+  const [yFixedValue, setYFixedValue] = React.useState(PI)
   const [xMovement, setXMovement] = React.useState(0)
   const [yMovement, setYMovement] = React.useState(0)
-  const [thethaIncrement, setThethaIncrement] = React.useState(0.3)
-  const [phiIncrement, setPhiIncrement] = React.useState(0.1)
-  const [outerRadius, setOuterRadius] = React.useState(1)
-  const [innerRadius, setInnerRadius] = React.useState(2)
-  const [fieldOfView, setFieldOfView] = React.useState(250)
-  const [distanceTorus, setDistanceTorus] = React.useState(5)
-
-  // Display π symbols instead of numbers
-  useEffect(() => {
-    if (xFixedValue === HALF_PI) return setXFixedValueDisplay('π/2')
-    if (xFixedValue === PI) return setXFixedValueDisplay('π')
-
-    setXFixedValueDisplay(xFixedValue.toString())
-  }, [xFixedValue])
-
-  // Display π symbols instead of numbers
-  useEffect(() => {
-    if (yFixedValue === HALF_PI) return setYFixedValueDisplay('π/2')
-    if (yFixedValue === PI) return setYFixedValueDisplay('π')
-
-    setYFixedValueDisplay(yFixedValue.toString())
-  }, [yFixedValue])
-
-  // Fix the values to π/2 when they are close to it
-  useEffect(() => {
-    if (xFixedValue > HALF_PI - CHANGE_RATE && xFixedValue < HALF_PI + CHANGE_RATE) {
-      setXFixedValue(HALF_PI)
-      setXFixedValueDisplay('π/2')
-    }
-
-    if (yFixedValue > HALF_PI - CHANGE_RATE && yFixedValue < HALF_PI + CHANGE_RATE) {
-      setYFixedValue(HALF_PI)
-      setYFixedValueDisplay('π/2')
-    }
-  }, [xFixedValue, yFixedValue])
+  const [theta, setTheta] = React.useState(torus.getThetaIncrement)
+  const [phi, setPhi] = React.useState(torus.getPhiIncrement)
+  const [outerRadius, setOuterRadius] = React.useState(torus.getOuterRadius)
+  const [innerRadius, setInnerRadius] = React.useState(torus.getInnerRadius)
+  const [fieldOfView, setFieldOfView] = React.useState(torus.getFieldOfView)
+  const [distanceTorus, setDistanceTorus] = React.useState(torus.getDistanceTorus)
 
   const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
+    if (value > HALF_PI - CHANGE_RATE && value < HALF_PI + CHANGE_RATE) {
+      setXFixedValue(HALF_PI)
+      torus.setXRotation(HALF_PI)
+      return
+    }
     setXFixedValue(value)
     torus.setXRotation(value)
   }
 
   const handleChangeYFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
+    if (value > HALF_PI) {
+    }
+    if (value > HALF_PI - CHANGE_RATE && value < HALF_PI + CHANGE_RATE) {
+      setYFixedValue(HALF_PI)
+      torus.setYRotation(HALF_PI)
+      return
+    }
     setYFixedValue(value)
     torus.setYRotation(value)
   }
@@ -71,13 +52,13 @@ export const useTweaks = (torus: Torus) => {
 
   const handleChangeThethaIncrement = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
-    setThethaIncrement(value)
+    setTheta(value)
     torus.setThetaIncrement(value)
   }
 
   const handleChangePhiIncrement = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
-    setPhiIncrement(value)
+    setPhi(value)
     torus.setPhiIncrement(value)
   }
 
@@ -107,17 +88,21 @@ export const useTweaks = (torus: Torus) => {
 
   return {
     xFixedValue,
-    xFixedValueDisplay,
     yFixedValue,
-    yFixedValueDisplay,
     xMovement,
     yMovement,
-    thethaIncrement,
-    phiIncrement,
+    theta,
+    phi,
     outerRadius,
     innerRadius,
     fieldOfView,
     distanceTorus,
+    setXMovement,
+    setYMovement,
+    setTheta,
+    setPhi,
+    setOuterRadius,
+    setInnerRadius,
     handleChangeXFixedValue,
     handleChangeYFixedValue,
     handleChangeXMovement,
@@ -129,4 +114,16 @@ export const useTweaks = (torus: Torus) => {
     handleFieldOfViewChange,
     handleDistanceTorusChange,
   }
+}
+
+export type UseTweaksContext = ReturnType<typeof useTweaks> | null
+
+export const TweaksContext = React.createContext<UseTweaksContext>(null)
+
+export const useTweaksContext = () => {
+  const context = React.useContext(TweaksContext)
+  if (!context) {
+    throw new Error('useTweaksContext must be used within a TweaksProvider')
+  }
+  return context
 }
