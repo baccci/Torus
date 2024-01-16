@@ -39,7 +39,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
         }>
           <NoiseLayer />
           <MobileDragMark />
-          <h2 className='mb-8 text-xl sm:text-3xl font-bold text-transparent bg-clip-text 
+          <h2 className='mb-4 mt-2 sm:mt-0 text-xl sm:text-3xl font-bold text-transparent bg-clip-text 
           bg-[linear-gradient(352deg,_#16162e_14%,_rgba(170,172,238,1)_100%)]
           sm:bg-[linear-gradient(352deg,_#16162e_30%,_rgba(170,172,238,1)_100%)]
           '>
