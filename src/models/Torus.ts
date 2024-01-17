@@ -239,7 +239,6 @@ export class Torus {
     this.cliking = cliking
   }
 
-
   public setXIncrement(xIncrement: number) {
     this.xIncrement = xIncrement
     this.draw()
