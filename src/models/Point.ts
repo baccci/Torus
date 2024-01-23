@@ -91,7 +91,7 @@ export class Point {
     if (this.colored) this.context.fillStyle = `rgba(${red}, ${green}, ${blue}, ${luminance})`
 
     if (this.point === 'square') this.context.rect(this.xp, this.yp, this.pointSize, this.pointSize)
-    if (this.point === 'circle') this.context.arc(this.xp, this.yp, this.pointSize, 0, 2 * Math.PI)
+    if (this.point === 'circle') this.context.arc(this.xp, this.yp, this.pointSize / 2, 0, 2 * Math.PI)
 
     this.context.fill()
   }
