@@ -13,6 +13,8 @@ export const useTweaks = (torus: Torus) => {
   const [innerRadius, setInnerRadius] = React.useState(torus.getInnerRadius)
   const [fieldOfView, setFieldOfView] = React.useState(torus.getFieldOfView)
   const [distanceTorus, setDistanceTorus] = React.useState(torus.getDistanceTorus)
+  const [luminance, setLuminance] = React.useState(torus.getLuminanceEnhance)
+  const [colored, setColored] = React.useState(false)
 
   const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
@@ -86,7 +88,18 @@ export const useTweaks = (torus: Torus) => {
     torus.setDistanceTorus(value)
   }
 
+  const handleLuminanceChange = (value: number) => {
+    setLuminance(value)
+    torus.setLuminanceEnhance(value)
+  }
+
+  const handleColoredChange = (value: boolean) => {
+    setColored(value)
+    torus.setColored(value)
+  }
+
   return {
+    torus,
     xFixedValue,
     yFixedValue,
     xMovement,
@@ -97,12 +110,18 @@ export const useTweaks = (torus: Torus) => {
     innerRadius,
     fieldOfView,
     distanceTorus,
+    luminance,
+    colored,
+    setColored,
     setXMovement,
     setYMovement,
     setTheta,
     setPhi,
     setOuterRadius,
     setInnerRadius,
+    setFieldOfView,
+    setDistanceTorus,
+    setLuminance,
     handleChangeXFixedValue,
     handleChangeYFixedValue,
     handleChangeXMovement,
@@ -113,6 +132,8 @@ export const useTweaks = (torus: Torus) => {
     handleInnerRadiusChange,
     handleFieldOfViewChange,
     handleDistanceTorusChange,
+    handleLuminanceChange,
+    handleColoredChange,
   }
 }
 

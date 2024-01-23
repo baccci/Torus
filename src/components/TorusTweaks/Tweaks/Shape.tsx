@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { TweakWrapper } from './TweakWrapper'
-import { Range } from '@/components/Range'
+import { Range } from '@/components/ui/Range'
 import { useTweaksContext } from '../context'
 import { PI } from '@/constants/constants'
 

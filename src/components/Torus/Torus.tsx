@@ -27,7 +27,7 @@ export const Torus: React.FC<TorusProps> = ({ torus }) => {
 
   return (
     <section className={cn(
-      'w-[85%] sm:w-[98%] flex flex-col items-center rounded-2xl z-[1] m-2 mt-0 sticky top-[-1px] sm:static transition-colors duration-500',
+      'w-[85%] sm:w-[98%] flex flex-col items-center rounded-2xl z-[2] m-2 mt-0 sticky top-[-1px] sm:static transition-colors duration-500',
       { 'bg-[#15151D] sm:bg-transparent': isSticky },
       { 'before:absolute before:inset-0 before:rounded-2xl before:border-[1px] before:border-[#211a3c] sm:before:[content:none]': isSticky },
     )}>

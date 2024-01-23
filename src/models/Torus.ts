@@ -34,15 +34,15 @@ export class Torus {
   private pointSize = 2
   private zBufferSize = 0
   private previousTouch: React.Touch | null = null
+  private colored?: boolean
   private minRed?: number
   private maxRed?: number
   private minGreen?: number
   private maxGreen?: number
   private minBlue?: number
   private maxBlue?: number
-  private colored?: boolean
   private point?: 'square' | 'circle'
-  private luminanceEnhance?: number
+  private luminanceEnhance?: number = 1.2
 
   constructor({
     context,
@@ -137,16 +137,16 @@ export class Torus {
         if (ooz > this.zBuffer[xTranslated][yTranslated]) {
           this.zBuffer[xTranslated][yTranslated] = ooz
           const point = new Point({
-            context: this.context
-          })
-
-          point.setProps({
+            context: this.context,
             xp,
             yp,
             z: ooz,
             luminance,
-            pointSize: this.pointSize
+            luminanceEnhance: this.luminanceEnhance,
+            pointSize: this.pointSize,
+            colored: this.colored
           })
+
           point.draw()
         }
       }
@@ -197,10 +197,10 @@ export class Torus {
   }
 
   private incrementX() {
-    const sum = this.xRotation + this.xIncrement
-    if (sum > PI * 2) return this.xRotation = sum - PI * 2
+    let sum = this.xRotation + this.xIncrement
+    if (sum > PI * 2) sum = sum - PI * 2
 
-    this.xRotation += this.xIncrement
+    this.xRotation = sum
   }
 
   private incrementY() {
@@ -303,6 +303,16 @@ export class Torus {
     this.draw()
   }
 
+  public setLuminanceEnhance(luminanceEnhance: number) {
+    this.luminanceEnhance = luminanceEnhance
+    this.draw()
+  }
+
+  public setColored(colored: boolean) {
+    this.colored = colored
+    this.draw()
+  }
+
   public get getXIncrement() {
     return this.xIncrement
   }
@@ -351,6 +361,13 @@ export class Torus {
     return this.phiLimit
   }
 
+  public get getLuminanceEnhance() {
+    return this.luminanceEnhance
+  }
+
+  public get getColored() {
+    return this.colored
+  }
 
 }
 

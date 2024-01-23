@@ -19,12 +19,22 @@ const { title, description } = Astro.props
   </head>
   <body
     class={`bg-neutral-950 pb-2 sm:pb-4
-  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]`}
+  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))]`}
   >
     <slot class='z-[1]' />
   </body>
 </html>
 <style is:global>
+  @font-face {
+    font-family: 'GeistMono';
+    src:
+      url('/fonts/Geist.Mono/GeistMono-Regular.woff2') format('woff2'),
+      url('/fonts/Geist.Mono/GeistMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   @font-face {
     font-family: 'Geist';
     src:

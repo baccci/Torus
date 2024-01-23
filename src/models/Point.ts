@@ -72,6 +72,7 @@ export class Point {
     this.maxBlue = maxBlue || this.maxBlue
     this.colored = colored || this.colored
     this.point = point || this.point
+
     this.luminanceEnhance = luminanceEnhance || this.luminanceEnhance
   }
 
@@ -96,7 +97,7 @@ export class Point {
   }
 
   private getLuminance(initialLuminance: number) {
-    const luminanceEnhance = this.luminanceEnhance >= 1 && this.luminanceEnhance <= 2 ? this.luminanceEnhance : 1
+    const luminanceEnhance = this.luminanceEnhance >= 0.01 && this.luminanceEnhance <= 3 ? this.luminanceEnhance : 1
     const luminance = initialLuminance * luminanceEnhance
     if (luminance > 1) return 1
     return luminance
@@ -155,7 +156,16 @@ export class Point {
     xp,
     yp,
     luminance,
-    pointSize
+    pointSize,
+    minRed,
+    maxRed,
+    minGreen,
+    maxGreen,
+    minBlue,
+    maxBlue,
+    colored,
+    point,
+    luminanceEnhance
   }: PointArgs) {
     this.x = x || this.x
     this.y = y || this.y
@@ -164,5 +174,14 @@ export class Point {
     this.yp = yp || this.yp
     this.luminance = luminance || this.luminance
     this.pointSize = pointSize || this.pointSize
+    this.minRed = minRed || this.minRed
+    this.maxRed = maxRed || this.maxRed
+    this.minGreen = minGreen || this.minGreen
+    this.maxGreen = maxGreen || this.maxGreen
+    this.minBlue = minBlue || this.minBlue
+    this.maxBlue = maxBlue || this.maxBlue
+    this.colored = colored || this.colored
+    this.point = point || this.point
+    this.luminanceEnhance = luminanceEnhance || this.luminanceEnhance
   }
 }

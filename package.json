@@ -6,7 +6,7 @@
   "author": "Salvador Bacci",
   "license": "MIT",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -21,6 +21,8 @@
     "@vercel/analytics": "^1.1.1",
     "astro": "^4.1.1",
     "clsx": "^2.1.0",
+    "decimal.js": "^10.4.3",
+    "howler": "^2.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.2.0",
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@tweakpane/core": "^2.0.3",
+    "@types/howler": "^2.2.11",
     "@types/react": "^18.2.47",
     "eslint-config-astro-svelte-jsdoc-standard": "^1.0.6"
   }

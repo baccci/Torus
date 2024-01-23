@@ -1,6 +1,6 @@
 import React from 'react'
 import { TweakWrapper } from './TweakWrapper'
-import { Range } from '@/components/Range'
+import { Range } from '@/components/ui/Range'
 import { useTweaksContext } from '../context'
 import { getCoordDisplayValue } from '../utils'
 import { PI } from '@/constants/constants'
@@ -28,7 +28,7 @@ export const Position = () => {
             customValueDisplay={xFixedValueDisplay}
             min={0}
             max={PI}
-            step={0.001}
+            step={0.01}
             label='X fixed value'
             onChange={events.handleChangeXFixedValue}
           />
@@ -40,7 +40,7 @@ export const Position = () => {
             customValueDisplay={yFixedValueDisplay}
             min={0}
             max={PI}
-            step={0.001}
+            step={0.01}
             label='Y fixed value'
             onChange={events.handleChangeYFixedValue}
           />
