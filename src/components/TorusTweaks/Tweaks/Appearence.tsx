@@ -15,6 +15,7 @@ export const Appearence = () => {
         step={0.02}
         label='Luminance'
         className='w-full'
+        activeColor='#ff9646'
         onChange={tweaks.handleLuminanceChange}
       />
 

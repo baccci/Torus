@@ -7,6 +7,7 @@ import { cn } from '@/lib/tailwindClassMerge'
 import Decimal from 'decimal.js'
 import { useEvents } from './useEvents'
 import type { FractionalRangeProps } from './types'
+import { IndicatorDot } from './IndicatorDot'
 
 export const FractionalRange = forwardRef<HTMLDivElement, FractionalRangeProps>(({
   min,
@@ -19,7 +20,7 @@ export const FractionalRange = forwardRef<HTMLDivElement, FractionalRangeProps>(
   "aria-label": _ariaLabel,
   onChange,
   color = '#fff',
-  activeColor = '#9899D7',
+  activeColor,
   disabled,
   ...rest
 }, ref) => {
@@ -89,11 +90,11 @@ export const FractionalRange = forwardRef<HTMLDivElement, FractionalRangeProps>(
           min={min}
           step={step}
           color={color}
-          activeColor={activeColor}
+          activeColor={activeColor || '#fff'}
           disabled={disabled}
         />
       </div>
-      <span className={cn(`size-1 rounded-full bg-[${activeColor}] absolute bottom-[10px] left-1/2 -translate-x-[25%]`)} />
+      <IndicatorDot activeColor={activeColor} />
       <span className='absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#111] to-[transparent] pointer-events-none' />
       <span className='absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-[#111] to-[transparent] pointer-events-none' />
     </div>
@@ -110,7 +111,7 @@ interface FractionsProps {
   disabled?: boolean
 }
 
-const Fractions: React.FC<FractionsProps> = ({ fractionsArray, value, min, step, color, activeColor, disabled }) => {
+const Fractions: React.FC<FractionsProps> = ({ fractionsArray, value, min, step, color, activeColor, disabled, }) => {
   return (
     <>
       {fractionsArray.map((index) => {

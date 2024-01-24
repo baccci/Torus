@@ -25,7 +25,7 @@ export const TabItem: React.FC<TabItemProps> = ({ id, children, className, onCli
       type='button'
       aria-selected={dataState === 'active'}
       aria-controls={id}
-      className={cn(`py-1.5 px-2.5 rounded-lg data-[state=active]:bg-[#dad5f2] text-[16px] text-[#abaef4] font-medium
+      className={cn(`py-1.5 px-2.5 rounded-lg data-[state=active]:bg-[#eeecf7] text-[16px] text-[#e7e9ff] font-medium
         data-[state=active]:shadow-sm data-[state=active]:text-slate-800
         transition-all duration-200 hover:bg-[#292940] 
       `, className)}

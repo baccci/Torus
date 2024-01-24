@@ -26,8 +26,8 @@ export const Fraction: React.FC<FractionProps> = ({ size, value, color, activeCo
       style={{ backgroundColor: colorDisplay }}
       className={cn(
         `relative w-[1.5px] min-w-[1.5px] ${fractionHeight} [transform:translateZ(0px)] touch-none`,
-        { 'opacity-40': !valueIsInRange },
-        { 'opacity-90': valueIsInRange }
+        { 'opacity-50': !valueIsInRange },
+        { 'opacity-100': valueIsInRange }
       )}
     >
       <FractionValueDisplay

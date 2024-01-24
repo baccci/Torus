@@ -32,7 +32,7 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
           '>
             Tweak panel
           </h2>
-          <Tab className='p-1 [--gap:4px] relative before:absolute before:mix-blend-overlay before:inset-0 before:border-[1px] before:rounded-xl before:border-white/40 before:pointer-events-none'>
+          <Tab className='p-1 [--gap:4px] relative before:absolute before:mix-blend-overlay before:inset-0 before:border-[1px] before:rounded-xl before:border-white/60 before:pointer-events-none'>
             <Tab.Item id='Position'>
               <Position />
             </Tab.Item>
