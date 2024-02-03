@@ -58,7 +58,7 @@ export const ColorSlider: React.FC<ColorSliderProps> = ({
   return (
     <div
       className={cn(
-        ' bg-[#111] rounded-xl border border-borderblack select-none flex flex-col gap-10 ',
+        ' bg-black rounded-xl border border-borderblack select-none flex flex-col gap-10 ',
         className
       )}
       role='group'
