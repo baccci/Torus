@@ -1,4 +1,3 @@
-
 import React, { forwardRef, useImperativeHandle } from 'react'
 import { useFractionRange } from './useFractionRange'
 import { Fraction } from './Fraction'
@@ -57,7 +56,7 @@ export const FractionalRange = forwardRef<HTMLDivElement, FractionalRangeProps>(
   return (
     <div
       className={cn(
-        'w-full overflow-hidden flex flex-col items-start relative py-6 px-0 bg-[#111] rounded-xl border border-[#222] select-none',
+        'w-full overflow-hidden flex flex-col items-start relative py-6 px-0 bg-[#111] rounded-xl border border-borderblack select-none',
         className
       )}
       ref={containerRef}
@@ -94,7 +93,7 @@ export const FractionalRange = forwardRef<HTMLDivElement, FractionalRangeProps>(
           disabled={disabled}
         />
       </div>
-      <IndicatorDot activeColor={activeColor} />
+      <IndicatorDot activeColor={activeColor} disabled={disabled} />
       <span className='absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#111] to-[transparent] pointer-events-none' />
       <span className='absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-[#111] to-[transparent] pointer-events-none' />
     </div>

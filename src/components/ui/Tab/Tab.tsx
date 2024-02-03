@@ -40,7 +40,6 @@ export const Tab = ({ className, children, fullWidth, initialTab, disableShadow,
           className
         )}
         role='tablist'
-
         {...other}
       >
         <Shadow getVisibleSides={getVisibleSides} side='left' />

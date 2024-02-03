@@ -104,20 +104,20 @@ export class Point {
   }
 
   private getRed(number: number) {
-    if (number < 60) return 60
-    if (number > 180) return 180
+    if (number < this.minRed) return this.minRed // 60
+    if (number > this.maxRed) return this.maxRed // 180
     return number
   }
 
   private getGreen(number: number) {
-    if (number < 20) return 20
-    if (number > 120) return 120
+    if (number < this.minGreen) return this.minGreen // 20
+    if (number > this.maxGreen) return this.maxGreen // 120
     return number
   }
 
   private getBlue(number: number) {
-    if (number < 120) return 120
-    if (number > 220) return 220
+    if (number < this.minBlue) return this.minBlue // 120
+    if (number > this.maxBlue) return this.maxBlue // 220
     return number
   }
 

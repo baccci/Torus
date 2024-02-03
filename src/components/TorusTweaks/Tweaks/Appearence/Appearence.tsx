@@ -1,10 +1,14 @@
-import { TweakWrapper } from './TweakWrapper'
-import { useTweaksContext } from '../context'
-import { Switch } from '@/components/ui/Switch/Switch'
+import { TweakWrapper } from '../TweakWrapper'
+import { useTweaksContext } from '../../context'
 import { FractionalRange } from '@/components/ui/FractionalRange/FractionalRange'
+import { ColorManagement } from './ColorManagement'
 
 export const Appearence = () => {
-  const { luminance, colored, handleColoredChange, ...tweaks } = useTweaksContext()
+  const {
+    luminance,
+    ...tweaks
+  } = useTweaksContext()
+
   return (
     <TweakWrapper>
       <FractionalRange
@@ -18,14 +22,7 @@ export const Appearence = () => {
         activeColor='#ff9646'
         onChange={tweaks.handleLuminanceChange}
       />
-
-      <Switch
-        className='[--bg-color:rgba(60,35,133,var(--alpha))]'
-        checked={colored}
-        onCheckedChange={handleColoredChange}
-      >
-        Colored
-      </Switch>
+      <ColorManagement />
     </TweakWrapper>
   )
 }

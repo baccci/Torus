@@ -1,4 +1,5 @@
 import { CHANGE_RATE, HALF_PI, PI } from '@/constants/constants'
+import { COLOR_MANAGEMENT_ITEM_VALUES } from './Tweaks/constants'
 import type Torus from '@/models/Torus'
 import React from 'react'
 
@@ -15,6 +16,9 @@ export const useTweaks = (torus: Torus) => {
   const [distanceTorus, setDistanceTorus] = React.useState(torus.getDistanceTorus)
   const [luminance, setLuminance] = React.useState(torus.getLuminanceEnhance)
   const [colored, setColored] = React.useState(false)
+  const [redChannel, setRedChannel] = React.useState([torus.getRedChannel.min, torus.getRedChannel.max])
+  const [greenChannel, setGreenChannel] = React.useState([torus.getGreenChannel.min, torus.getGreenChannel.max])
+  const [blueChannel, setBlueChannel] = React.useState([torus.getBlueChannel.min, torus.getBlueChannel.max])
 
   const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
@@ -93,9 +97,23 @@ export const useTweaks = (torus: Torus) => {
     torus.setLuminanceEnhance(value)
   }
 
-  const handleColoredChange = (value: boolean) => {
-    setColored(value)
-    torus.setColored(value)
+  const handleColoredChange = (value: string) => {
+    const isColored = value === COLOR_MANAGEMENT_ITEM_VALUES[1]
+    setColored(isColored)
+    torus.setColored(isColored)
+  }
+
+  const handleRedChannelChange = (value: number[]) => {
+    setRedChannel(value)
+    torus.setRedChannel(value[0], value[1])
+  }
+  const handleGreenChannelChange = (value: number[]) => {
+    setGreenChannel(value)
+    torus.setGreenChannel(value[0], value[1])
+  }
+  const handleBlueChannelChange = (value: number[]) => {
+    setBlueChannel(value)
+    torus.setBlueChannel(value[0], value[1])
   }
 
   return {
@@ -112,6 +130,9 @@ export const useTweaks = (torus: Torus) => {
     distanceTorus,
     luminance,
     colored,
+    redChannel,
+    greenChannel,
+    blueChannel,
     setColored,
     setXMovement,
     setYMovement,
@@ -122,6 +143,9 @@ export const useTweaks = (torus: Torus) => {
     setFieldOfView,
     setDistanceTorus,
     setLuminance,
+    setRedChannel,
+    setGreenChannel,
+    setBlueChannel,
     handleChangeXFixedValue,
     handleChangeYFixedValue,
     handleChangeXMovement,
@@ -134,6 +158,9 @@ export const useTweaks = (torus: Torus) => {
     handleDistanceTorusChange,
     handleLuminanceChange,
     handleColoredChange,
+    handleRedChannelChange,
+    handleGreenChannelChange,
+    handleBlueChannelChange
   }
 }
 

@@ -35,12 +35,12 @@ export class Torus {
   private zBufferSize = 0
   private previousTouch: React.Touch | null = null
   private colored?: boolean
-  private minRed?: number
-  private maxRed?: number
-  private minGreen?: number
-  private maxGreen?: number
-  private minBlue?: number
-  private maxBlue?: number
+  private minRed?: number = 60
+  private maxRed?: number = 180
+  private minGreen?: number = 20
+  private maxGreen?: number = 120
+  private minBlue?: number = 120
+  private maxBlue?: number = 220
   private point?: 'square' | 'circle'
   private luminanceEnhance?: number = 1.2
 
@@ -144,7 +144,13 @@ export class Torus {
             luminance,
             luminanceEnhance: this.luminanceEnhance,
             pointSize: this.pointSize,
-            colored: this.colored
+            colored: this.colored,
+            minRed: this.minRed,
+            maxRed: this.maxRed,
+            minGreen: this.minGreen,
+            maxGreen: this.maxGreen,
+            minBlue: this.minBlue,
+            maxBlue: this.maxBlue
           })
 
           point.draw()
@@ -313,6 +319,24 @@ export class Torus {
     this.draw()
   }
 
+  public setRedChannel(min: number, max: number) {
+    this.minRed = min
+    this.maxRed = max
+    this.draw()
+  }
+
+  public setGreenChannel(min: number, max: number) {
+    this.minGreen = min
+    this.maxGreen = max
+    this.draw()
+  }
+
+  public setBlueChannel(min: number, max: number) {
+    this.minBlue = min
+    this.maxBlue = max
+    this.draw()
+  }
+
   public get getXIncrement() {
     return this.xIncrement
   }
@@ -369,6 +393,17 @@ export class Torus {
     return this.colored
   }
 
+  public get getRedChannel() {
+    return { min: this.minRed, max: this.maxRed }
+  }
+
+  public get getGreenChannel() {
+    return { min: this.minGreen, max: this.maxGreen }
+  }
+
+  public get getBlueChannel() {
+    return { min: this.minBlue, max: this.maxBlue }
+  }
 }
 
 
