@@ -33,7 +33,7 @@ export const ColorManagement: React.FC = () => {
       handleGreenChannelChange={handleGreenChannelChange}
       handleBlueChannelChange={handleBlueChannelChange}
     />,
-    white: <Card className='w-full'>Just flat white color.</Card>,
+    white: null,
   }[selected]
 
   return (
@@ -80,15 +80,11 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
 
   return (
     <div className='flex flex-col gap-2 w-full'>
-      <Card className='text-pretty'>
-        Dynamics colors are a combination of red, green and blue channels.
-        Each channel is affected by the Y axis or altitud of the torus.
-      </Card>
-      <div className='w-full flex gap-2 flex-col lg:flex-row justify-between'>
+      <div className='w-full flex flex-col lg:flex-row justify-between'>
         <ColorSlider
           label='Red channel'
           hue={0}
-          className='w-full lg:w-[32%] p-4 lg:p-6'
+          className='w-full lg:w-[32.5%] p-4 lg:p-6'
           saturation={80}
           onValueChange={handleRedChannelChange}
           values={safeRedChannel}
@@ -96,7 +92,7 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
         <ColorSlider
           label='Green channel'
           hue={120}
-          className='w-full lg:w-[32%] p-4 lg:p-6'
+          className='w-full lg:w-[32.5%] p-4 lg:p-6'
           saturation={80}
           onValueChange={handleGreenChannelChange}
           values={safeGreenChannel}
@@ -104,12 +100,19 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
         <ColorSlider
           label='Blue channel'
           hue={240}
-          className='w-full lg:w-[32%] p-4 lg:p-6'
+          className='w-full lg:w-[32.5%] p-4 lg:p-6'
           saturation={80}
           onValueChange={handleBlueChannelChange}
           values={safeBlueChannel}
         />
       </div>
+      <Card>
+        <h3 className='text-xl mb-3'>Dynamic Colors</h3>
+        <p className='text-white/50 text-pretty'>
+          Dynamics colors are a combination of red, green and blue channels.
+          Each channel is affected by the Y axis (or altitud) of the torus.
+        </p>
+      </Card>
     </div>
   )
 }
