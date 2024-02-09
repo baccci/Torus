@@ -1,23 +1,21 @@
 import { numberToFixed } from '@/lib/numberToFixed'
 import { cn } from '@/lib/tailwindClassMerge'
+import { useFractionalRangeContext } from './context'
 
 interface FractionProps {
   size: 1 | 2
   value: number
-  color?: string
-  activeColor?: string
-  currentValue?: number
 }
 
-export const Fraction: React.FC<FractionProps> = ({ size, value, color, activeColor, currentValue = 0 }) => {
+export const Fraction: React.FC<FractionProps> = ({ size, value }) => {
+  const { color, activeColor, currentValue } = useFractionalRangeContext()
 
-  const fractionHeight = size === 1 ? 'h-2' : 'h-4'
+  const fractionHeight = size === 1 ? 'h-2' : 'h-3'
   const currentValuePositive = currentValue > 0
   const valuePositive = value && value > 0
   const equalSignValues = currentValuePositive === valuePositive
   const valueIsPotentiallyInRange = equalSignValues && Math.abs(currentValue) >= Math.abs(value || 0)
   const valueIsInRange = valueIsPotentiallyInRange || value === 0
-
   const showValue = size === 2
   const colorDisplay = valueIsInRange ? activeColor : color
 
@@ -33,7 +31,7 @@ export const Fraction: React.FC<FractionProps> = ({ size, value, color, activeCo
       <FractionValueDisplay
         value={value}
         showValue={showValue}
-        color='#fff'
+        color={color}
       />
     </div>
   )

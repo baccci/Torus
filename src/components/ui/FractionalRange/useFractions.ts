@@ -2,20 +2,9 @@ import { numberToFixed } from '@/lib/numberToFixed'
 import React, { useEffect } from 'react'
 import Decimal from 'decimal.js'
 import { valueToX, xToValue } from './utils'
+import type { FractionalContextType } from './context'
 
-interface UseFractionRangeProps {
-  max: number
-  min: number
-  step: number
-  value?: number
-  containerRef: React.RefObject<HTMLDivElement>
-  fractionRef: React.RefObject<HTMLDivElement>
-  onChange?: (value: number) => void
-  translateX: number
-  setTranslateX: React.Dispatch<React.SetStateAction<number>>
-}
-
-export const useFractionRange = ({
+export const useFractions = ({
   max,
   min,
   step,
@@ -26,10 +15,12 @@ export const useFractionRange = ({
   onChange,
   translateX,
   setTranslateX
-}: UseFractionRangeProps) => {
+}: FractionalContextType) => {
+  const [mounted, setMounted] = React.useState(false)
   const value = _value || 0
 
   useEffect(() => {
+    if (!mounted) return
     const inputValue = xToValue({
       xValue: translateX,
       containerRef,
@@ -70,13 +61,13 @@ export const useFractionRange = ({
     })
 
     setTranslateX(xTranlation)
+    setMounted(true)
   }, [containerRef, fractionRef])
 
   const totalMarks = (max - min) / step
   const fractionsArray = [...Array(totalMarks + 1)].map((_, i) => i)
 
   return {
-    totalMarks,
-    fractionsArray,
+    fractionsArray
   }
 }

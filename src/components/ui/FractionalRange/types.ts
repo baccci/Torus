@@ -21,4 +21,5 @@ export type FractionalRangeProps = DetailedProps & {
   color?: string
   activeColor?: string
   disabled?: boolean
+  sound?: boolean
 } & LabelProps

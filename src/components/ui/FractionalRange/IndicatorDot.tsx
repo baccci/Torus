@@ -1,12 +1,8 @@
-import { cn } from '@/lib/tailwindClassMerge'
 import React from 'react'
+import { useFractionalRangeContext } from './context'
 
-interface IndicatorDotProps {
-  activeColor?: string
-  disabled?: boolean
-}
-
-export const IndicatorDot: React.FC<IndicatorDotProps> = ({ activeColor, disabled }) => {
+export const IndicatorDot: React.FC = () => {
+  const { activeColor, disabled } = useFractionalRangeContext()
   return (
     <span
       className={'size-1 rounded-full absolute bottom-[10px] left-1/2 -translate-x-[25%]'}

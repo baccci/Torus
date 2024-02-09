@@ -14,7 +14,7 @@ export const Appearence = () => {
       <FractionalRange
         id='luminance'
         value={luminance}
-        min={0}
+        min={0.2}
         max={3}
         step={0.02}
         label='Luminance'

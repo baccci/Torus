@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
+import type { FractionalContextType } from './context'
 
-interface useEventsArgs {
-  fractionRef: React.RefObject<HTMLDivElement>
-  step: number
-  disabled?: boolean
-}
-
-export const useEvents = ({ fractionRef, step, disabled }: useEventsArgs) => {
-  const [translateX, setTranslateX] = useState(0)
+export const useEvents = ({ fractionRef, step, disabled, setTranslateX, translateX }: FractionalContextType) => {
   const [clicking, setClicking] = useState(false)
   const [previousTouch, setPreviousTouch] = useState<React.Touch | null>(null)
+
+  const handleInputArrowKeys = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (disabled) return
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+
+    const delta = e.key === 'ArrowLeft' ? 10 : -10
+    setTranslateX(prevTranslateX => prevTranslateX + delta)
+  }
 
   const handleBodyMouseMove = (e: MouseEvent) => {
     if (!clicking || disabled) return
@@ -49,13 +51,6 @@ export const useEvents = ({ fractionRef, step, disabled }: useEventsArgs) => {
     setPreviousTouch(null)
   }
 
-  const handleInputArrowKeys = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (disabled) return
-    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
-
-    const delta = e.key === 'ArrowLeft' ? 10 : -10
-    setTranslateX(prevTranslateX => prevTranslateX + delta)
-  }
 
   const handleInputWheel = (e: WheelEvent) => {
     if (disabled) return
@@ -94,7 +89,6 @@ export const useEvents = ({ fractionRef, step, disabled }: useEventsArgs) => {
 
 
   return {
-    translateX,
     clicking,
     setClicking,
     setTranslateX,
