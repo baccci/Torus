@@ -1,6 +1,7 @@
 import getChildrenOnDisplayName from '@/lib/getComponentChildrens'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ITEM_NAME } from './Item'
+import type { ItemProps } from './types'
 
 interface UseItemsArgs {
   children: React.ReactNode
@@ -12,6 +13,7 @@ interface UseItemsArgs {
   Controls the state of the items and the selected item,
   injecting the necessary props to the items 
 */
+
 export const useItems = ({
   children,
   controlledSelected,
@@ -26,7 +28,7 @@ export const useItems = ({
     setUncontrolledSelected(index)
   }
 
-  const rawItems = useMemo(() => getChildrenOnDisplayName(children, ITEM_NAME), [children])
+  const rawItems = useMemo(() => getChildrenOnDisplayName<ItemProps>(children, ITEM_NAME), [children])
 
   useEffect(() => {
     if (selected || !rawItems.length) return
@@ -34,7 +36,7 @@ export const useItems = ({
     updateSelected(firstItem)
   }, [])
 
-  const items: React.ReactElement<HTMLDivElement>[] = rawItems.map((item, index) => {
+  const items: typeof rawItems = rawItems.map((item) => {
     const itemValue = item.props.value
     return React.cloneElement(item, {
       ...item.props,
