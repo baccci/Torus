@@ -69,7 +69,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
           'focus-visible:outline focus-visible:outline-white/80 focus-visible:outline-offset-2',
           // value text 
           { 'before:absolute before:top-[-25px] before:-right-2 before:translate-x-1/2 before:[content:attr(data-value)] before:text-slate-300': value || value === 0 },
-          { 'after:bg-blue-500': draggingThis },
+          { 'after:[var(--slider-thumb-dragging-color)]': draggingThis },
           childClassName
         )}
         {...rest}

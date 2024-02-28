@@ -52,7 +52,7 @@ export const MultiSlider: MultiSliderType = (props) => {
           'h-11 flex gap-4 md:gap-3 select-none relative isolate',
           'data-[dragging="true"]:cursor-grabbing',
           { 'grayscale-[100%]': disabled },
-          '[--slider-bg-color:#CBD5E1] [--slider-thumb-color:#CBD5E1] [--slider-bg-hover-color:#fff] [--slider-thumb-hover-color:#fff] [--slider-thumb-ring-color:rgb(37_99_235)]',
+          '[--slider-bg-color:#CBD5E1] [--slider-thumb-color:#CBD5E1] [--slider-bg-hover-color:#fff] [--slider-thumb-hover-color:#fff] [--slider-thumb-ring-color:rgb(37_99_235)] [--slider-thumb-dragging-color:white',
           props.className
         )}
         {...rest}
