@@ -1,7 +1,7 @@
 {
   "name": "torus",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple 3D torus",
   "author": "Salvador Bacci",
   "license": "MIT",
@@ -17,6 +17,7 @@
     "@astrojs/react": "^3.0.9",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^6.1.3",
+    "@react-spring/web": "^9.7.3",
     "@use-gesture/react": "^10.3.0",
     "@vercel/analytics": "^1.1.1",
     "astro": "^4.1.1",

@@ -1,109 +1,118 @@
-import React, { forwardRef, useImperativeHandle } from 'react'
-import { useFractions } from './useFractions'
-import { Fraction } from './Fraction'
-import { useSound } from './useSound'
+import React from 'react'
+import useMeasure from 'react-use-measure'
+import Fractions from './Fractions'
+import getFractions from './getFractions'
+import { animated } from '@react-spring/web'
+import { useSound } from './hooks/useSound'
 import { cn } from '@/lib/tailwindClassMerge'
-import Decimal from 'decimal.js'
-import { useEvents } from './useEvents'
-import type { FractionalRangeProps } from './types'
 import { IndicatorDot } from './IndicatorDot'
-import { FractionalRangeContext, useFractionalRange, useFractionalRangeContext } from './context'
+import { useValues } from './hooks/useValues'
+import { useGestures } from './hooks/useGestures'
+import { Titlebar } from './Titlebar'
+import { Label } from './Label'
+import { Value } from './Value'
+import { Layout } from './Layout'
+import { FractionalRangeContext, useFractionalRange } from './context'
+import type { FractionalRangeType, FractionalRangeProps } from './types'
 
-export const FractionalRange = forwardRef<HTMLDivElement, FractionalRangeProps>(function FractionalRange(props, ref) {
+export const FractionalRange: FractionalRangeType = (props) => {
   const {
-    min,
-    max,
-    value,
-    step,
-    id,
     className,
     label,
     "aria-label": _ariaLabel,
-    onChange,
-    color = '#fff',
-    activeColor,
-    disabled,
-    ...rest
+    max,
+    min,
+    step,
+    sound = false,
+    layout = 'none',
+    children,
   } = props
-  const labelText = typeof label === 'string' ? label : undefined
+
+  const [wrapperRef, { width: boundsWidth }] = useMeasure()
+  const [fractionRef, { width: fractionWidth }] = useMeasure()
+
+  const labelText = typeof label === 'string'
+    ? label
+    : undefined
   const ariaLabel = _ariaLabel || labelText
 
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const fractionRef = React.useRef<HTMLDivElement>(null)
+  const { useValuesArgs, htmlProps, contextProps } = propsInjection({ ...props, boundsWidth, fractionWidth, labelText })
 
-  const valueSign = (value || 1) > 0 ? '+' : '-'
-
-  const fractionalContext = useFractionalRange({ ...props, fractionRef, containerRef })
-  const { handleInputArrowKeys } = useEvents(fractionalContext)
-  const { fractionsArray } = useFractions(fractionalContext)
-  useSound(value)
-  useImperativeHandle(ref, () => fractionRef.current as HTMLDivElement)
+  const { x, api, value } = useValues(useValuesArgs)
+  const fractionalContext = useFractionalRange({ ...contextProps, value })
+  const bind = useGestures({ api })
+  const fractionsArray = React.useMemo(() => getFractions(step, min, max), [step, min, max])
+  useSound(value, sound)
 
   return (
     <FractionalRangeContext.Provider value={fractionalContext}>
       <div
         className={cn(
-          'w-full overflow-hidden flex flex-col items-start relative py-6 px-0 bg-black rounded-xl border border-borderblack select-none',
+          'w-full overflow-hidden flex flex-col items-start relative py-6 px-0 bg-black rounded-xl border border-borderblack select-none isolate',
           className
         )}
-        ref={containerRef}
-        id={id}
-        {...rest}
+        ref={wrapperRef}
+        {...htmlProps}
       >
-        <div className='w-full flex justify-between font-mono px-6 mt-[-8px] text-sm mb-6 z-[1]'>
-          <span>{label}</span>
-          <div className='flex gap-1'>
-            <span>{valueSign}</span>
-            <span>{Math.abs(value || 0)}</span>
-          </div>
-        </div>
-        <div
+        <Layout layout={layout} children={children} />
+        <animated.div
           className='flex gap-1.5 items-end will-change-transform cursor-ew-resize pt-4 pb-2 focus-visible:outline-offset-[16px]'
           role='slider'
           tabIndex={0}
           aria-label={ariaLabel}
-          aria-valuemin={min}
-          aria-valuemax={max}
+          aria-valuemin={props.min}
+          aria-valuemax={props.max}
           aria-valuenow={value}
-          style={{ transform: `translateX(${fractionalContext.translateX}px) translateZ(0px)` }}
-          onKeyDown={handleInputArrowKeys}
-          id={`${id}-fractional-range`}
+          style={{ x }}
           ref={fractionRef}
+          {...bind}
         >
           <Fractions fractionsArray={fractionsArray} />
-        </div>
-        <IndicatorDot />
-        <span className='absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-black to-[transparent] pointer-events-none' />
-        <span className='absolute top-0 right-0 bottom-0 w-16 bg-gradient-to-l from-black to-[transparent] pointer-events-none' />
+        </animated.div>
       </div>
     </FractionalRangeContext.Provider>
   )
-})
-
-interface FractionsProps {
-  fractionsArray: number[]
 }
 
-const Fractions: React.FC<FractionsProps> = ({ fractionsArray }) => {
-  const { min, step } = useFractionalRangeContext()
+FractionalRange.Titlebar = Titlebar
+FractionalRange.Label = Label
+FractionalRange.Value = Value
+FractionalRange.IndicatorDot = IndicatorDot
 
-  const FractionChildren = React.useMemo(() => (
-    fractionsArray.map((index) => {
-      const size = index % 5 === 0 ? 2 : 1
-      const safeValue = new Decimal(min).plus(new Decimal(index).times(step)).toNumber()
-      return (
-        <Fraction
-          key={index}
-          size={size}
-          value={safeValue}
-        />
-      )
-    })
-  ), [fractionsArray, min, step])
+function propsInjection(props: FractionalRangeProps & { boundsWidth: number, fractionWidth: number, labelText?: string }) {
+  const {
+    className,
+    min,
+    max,
+    onChange,
+    initialValue,
+    step,
+    boundsWidth,
+    fractionWidth,
+    activeColor,
+    color,
+    label,
+    "aria-label": _ariaLabel,
+    fragmentClassName,
+    labelText,
+    layout,
+    ...rest
+  } = props
 
-  return (
-    <>
-      {FractionChildren}
-    </>
-  )
+  const useValuesArgs = {
+    initialValue,
+    onChange,
+    controlledValue: props.value,
+    boundsWidth,
+    fractionWidth,
+    min,
+    max,
+    step
+  }
+
+  return {
+    useValuesArgs,
+    htmlProps: rest,
+    contextProps: props,
+  }
 }

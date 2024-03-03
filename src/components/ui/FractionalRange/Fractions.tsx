@@ -1,14 +1,46 @@
 import { numberToFixed } from '@/lib/numberToFixed'
 import { cn } from '@/lib/tailwindClassMerge'
 import { useFractionalRangeContext } from './context'
+import React from 'react'
+import Decimal from 'decimal.js'
+
+interface FractionsProps {
+  fractionsArray: number[]
+}
+
+export const Fractions: React.FC<FractionsProps> = ({ fractionsArray }) => {
+  const { min, step } = useFractionalRangeContext()
+
+  const FractionChildren = React.useMemo(() => (
+    fractionsArray.map((index) => {
+      const size = index % 5 === 0 ? 2 : 1
+      const safeValue = new Decimal(min).plus(new Decimal(index).times(step)).toNumber()
+      return (
+        <Fraction
+          key={index}
+          size={size}
+          value={safeValue}
+        />
+      )
+    })
+  ), [fractionsArray, min, step])
+
+  return (
+    <>
+      {FractionChildren}
+    </>
+  )
+}
+
+export default Fractions
 
 interface FractionProps {
   size: 1 | 2
   value: number
 }
 
-export const Fraction: React.FC<FractionProps> = ({ size, value }) => {
-  const { color, activeColor, currentValue } = useFractionalRangeContext()
+const Fraction: React.FC<FractionProps> = ({ size, value }) => {
+  const { color, activeColor, currentValue, fragmentClassName } = useFractionalRangeContext()
 
   const fractionHeight = size === 1 ? 'h-2' : 'h-3'
   const currentValuePositive = currentValue > 0
@@ -21,11 +53,13 @@ export const Fraction: React.FC<FractionProps> = ({ size, value }) => {
 
   return (
     <div
-      style={{ backgroundColor: colorDisplay }}
+      // @ts-expect-error - --color-display is a valid css variable
+      style={{ '--color-display': colorDisplay }}
+      data-valueinrange={valueIsInRange}
       className={cn(
-        `relative w-[1.5px] min-w-[1.5px] ${fractionHeight} [transform:translateZ(0px)] touch-none`,
-        { 'opacity-50': !valueIsInRange },
-        { 'opacity-100': valueIsInRange }
+        `relative w-[1.5px] min-w-[1.5px] ${fractionHeight} [transform:translateZ(0px)] touch-none bg-[var(--color-display)]`,
+        'data-[valueinrange="false"]:opacity-50 data-[valueinrange="true"]:opacity-100',
+        fragmentClassName
       )}
     >
       <FractionValueDisplay

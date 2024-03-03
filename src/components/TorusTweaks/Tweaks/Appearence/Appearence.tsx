@@ -21,6 +21,7 @@ export const Appearence = () => {
         className='w-full'
         activeColor='#ff9646'
         onChange={tweaks.handleLuminanceChange}
+        layout='full'
       />
       <ColorManagement />
     </TweakWrapper>

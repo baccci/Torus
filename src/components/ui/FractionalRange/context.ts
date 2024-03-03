@@ -2,8 +2,9 @@ import { createContext, useContext, useState } from 'react'
 import type { FractionalRangeProps } from './types'
 
 type FractionalContextArgs = FractionalRangeProps & {
-  containerRef: React.RefObject<HTMLDivElement>
-  fractionRef: React.RefObject<HTMLDivElement>
+  boundsWidth: number
+  fractionWidth: number
+  labelText?: string
 }
 
 export const useFractionalRange = ({ ...props }: FractionalContextArgs) => {

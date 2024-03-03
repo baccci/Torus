@@ -1,55 +1,51 @@
 import Decimal from 'decimal.js'
 
 interface xToValue {
-  xValue: number
-  containerRef: React.RefObject<HTMLDivElement>
-  fractionRef: React.RefObject<HTMLDivElement>
+  x: number
+  boundsWidth: number
+  fractionWidth: number
   min: number
   max: number
   step: number
 }
 
-export const xToValue = ({
-  xValue,
-  containerRef,
-  fractionRef,
+export const coordinateToValue = ({
+  x,
+  boundsWidth,
+  fractionWidth,
   min,
   max,
   step
 }: xToValue) => {
-  if (!containerRef.current || !fractionRef.current) return 0
+  if (!boundsWidth || !fractionWidth) return 0
 
-  const containerWidth = containerRef.current.offsetWidth
-  const markedWidth = fractionRef.current.offsetWidth
   const stepAmount = (new Decimal(max).minus(min)).div(step).toNumber()
-  const relInputValue = - (new Decimal(stepAmount).mul(new Decimal(xValue).minus(new Decimal(containerWidth).div(2)))).div(markedWidth).toNumber()
+  const relInputValue = - (new Decimal(stepAmount).mul(new Decimal(x).minus(new Decimal(boundsWidth).div(2)))).div(fractionWidth).toNumber()
 
   return new Decimal(relInputValue).mul(step).plus(min).toNumber()
 }
 
 interface valueToXArgs {
   inputValue: number
-  containerRef: React.RefObject<HTMLDivElement>
-  fractionRef: React.RefObject<HTMLDivElement>
+  boundsWidth: number
+  fractionWidth: number
   min: number
   max: number
   step: number
 }
 
-export const valueToX = ({
+export const valueToCoordinate = ({
   inputValue,
-  containerRef,
-  fractionRef,
+  boundsWidth,
+  fractionWidth,
   min,
   max,
   step
 }: valueToXArgs) => {
-  if (!containerRef.current || !fractionRef.current) return 0
+  if (!boundsWidth || !fractionWidth) return 0
 
-  const containerWidth = containerRef.current.offsetWidth
-  const markedWidth = fractionRef.current.offsetWidth
   const stepAmount = (new Decimal(max).minus(min)).div(step).toNumber()
   const relativeValue = new Decimal(inputValue).minus(min).div(step).toNumber()
 
-  return (new Decimal(containerWidth).div(2).minus(new Decimal(markedWidth).mul(relativeValue).div(stepAmount))).toNumber()
+  return (new Decimal(boundsWidth).div(2).minus(new Decimal(fractionWidth).mul(relativeValue).div(stepAmount))).toNumber()
 }
