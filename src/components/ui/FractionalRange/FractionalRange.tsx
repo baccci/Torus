@@ -96,6 +96,7 @@ function propsInjection(props: FractionalRangeProps & { boundsWidth: number, fra
     fragmentClassName,
     labelText,
     layout,
+    sound,
     ...rest
   } = props
 
