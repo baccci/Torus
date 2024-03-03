@@ -22,6 +22,7 @@ export const Appearence = () => {
         activeColor='#ff9646'
         onChange={tweaks.handleLuminanceChange}
         layout='full'
+        sound
       />
       <ColorManagement />
     </TweakWrapper>
