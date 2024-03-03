@@ -80,7 +80,7 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
 
   return (
     <div className='flex flex-col gap-2 w-full'>
-      <div className='w-full flex flex-col lg:flex-row justify-between'>
+      <div className='w-full flex flex-col gap-2 lg:gap-0 lg:flex-row justify-between'>
         <ColorSlider
           label='Red channel'
           hue={0}
