@@ -1,6 +1,6 @@
 import { MultiSlider } from '@/components/ui/MultiSlider/MultiSlider'
 import { cn } from '@/lib/tailwindClassMerge'
-import React, { useEffect, type DetailedHTMLProps } from 'react'
+import React, { type DetailedHTMLProps } from 'react'
 
 interface ColorSliderProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   label: string
@@ -94,8 +94,13 @@ export const ColorSlider: React.FC<ColorSliderProps> = ({
 }
 
 const usePrintColorsOnMount = (values: number[] | undefined, handleColorChange: (values: number[]) => void) => {
-  if (!values) return
-  useEffect(() => {
-    handleColorChange(values)
-  }, [])
+  const initialValues = React.useRef(values)
+  const printColorsOnMount = React.useCallback(() => {
+    if (!initialValues.current) return
+    handleColorChange(initialValues.current)
+  }, [handleColorChange, initialValues])
+
+  React.useLayoutEffect(() => {
+    printColorsOnMount()
+  }, [printColorsOnMount])
 }
