@@ -7,6 +7,7 @@ import { Item } from './Item'
 import { TabItems } from './TabItems'
 import { useScrollShadow } from './useScrollShadow'
 import { Shadow } from './Shadow'
+import type { TabItemProps } from './TabItem'
 
 interface TabProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: React.ReactNode
@@ -17,7 +18,7 @@ interface TabProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement
 }
 
 export const Tab = ({ className, children, fullWidth, initialTab, disableShadow, ...other }: TabProps) => {
-  const items = React.useMemo(() => getChildrenOnDisplayName(children, 'Item'), [children])
+  const items = React.useMemo(() => getChildrenOnDisplayName<TabItemProps>(children, 'Item'), [children])
 
   const {
     getVisibleSides,

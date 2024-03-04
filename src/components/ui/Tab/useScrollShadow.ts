@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 export const useScrollShadow = (disableShadow?: boolean) => {
-  const [scrollLeft, setScrollLeft] = useState(0)
-  const [scrollWidth, setScrollWidth] = useState(0)
-  const [clientWidth, setClientWidth] = useState(0)
+  const [scrollLeft, setScrollLeft] = React.useState(0)
+  const [scrollWidth, setScrollWidth] = React.useState(0)
+  const [clientWidth, setClientWidth] = React.useState(0)
 
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const wrapperRef = React.useRef<HTMLDivElement>(null)
 
   const onScrollHandler = (event: React.WheelEvent<HTMLDivElement>) => {
     if (disableShadow) return
@@ -15,7 +15,7 @@ export const useScrollShadow = (disableShadow?: boolean) => {
     setClientWidth(event.currentTarget.clientWidth)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const resetRefSizes = (ref: React.RefObject<HTMLDivElement>) => {
       if (!ref.current || disableShadow) return
 
@@ -39,13 +39,13 @@ export const useScrollShadow = (disableShadow?: boolean) => {
 
     return {
       left,
-      right,
+      right
     }
   }
 
   return {
     wrapperRef,
     onScrollHandler,
-    getVisibleSides,
+    getVisibleSides
   }
 }

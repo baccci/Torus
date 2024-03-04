@@ -11,10 +11,9 @@ export const valueToSize = (value: number, min: number, max: number, wrapperSize
 }
 
 export const valuesToSizes = (values: number[], min: number | string, max: number | string, wrapperSize: number) => {
-
   // Calculate the accumulated values but not adding themselves
   // If 1 value = 1px size and total size is 70: [10, 20, 70] => [10, 10, 50]
-  // Without this process, the end sizes would be [10, 20, 70], 
+  // Without this process, the end sizes would be [10, 20, 70],
   // thus the sum of them 10 + 20 + 70 = 100, which is grater than the total size
   const accumulatedValues = values.reduce((acc: number[], value: number, index: number) => {
     if (index === 0) return [value]

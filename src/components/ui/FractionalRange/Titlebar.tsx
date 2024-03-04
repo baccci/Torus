@@ -17,4 +17,3 @@ export const Titlebar: React.FC<TitlebarProps> = ({ className, children, ...rest
 }
 
 Titlebar.displayName = 'Titlebar'
-

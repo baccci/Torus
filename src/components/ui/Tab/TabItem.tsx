@@ -2,7 +2,7 @@ import React, { type DetailedHTMLProps, type MouseEventHandler } from 'react'
 import { useTabContext } from './hooks'
 import { cn } from '@/lib/tailwindClassMerge'
 
-interface TabItemProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+export interface TabItemProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined
   id: string
   children?: React.ReactNode

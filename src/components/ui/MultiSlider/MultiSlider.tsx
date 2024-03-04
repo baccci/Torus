@@ -30,7 +30,7 @@ export const MultiSlider: MultiSliderType = (props) => {
     controlledValues,
     initialValues,
     arrowKeyMajorStep,
-    arrowKeyMinorStep,
+    arrowKeyMinorStep
   }
 
   const [wrapperRef, bounds] = useMeasure()
@@ -53,7 +53,7 @@ export const MultiSlider: MultiSliderType = (props) => {
           'data-[dragging="true"]:cursor-grabbing',
           { 'grayscale-[100%]': disabled },
           '[--slider-bg-color:#CBD5E1] [--slider-thumb-color:#CBD5E1] [--slider-bg-hover-color:#fff] [--slider-thumb-hover-color:#fff] [--slider-thumb-ring-color:rgb(37_99_235)] [--slider-thumb-dragging-color:white',
-          props.className
+          className
         )}
         {...rest}
       >

@@ -45,7 +45,6 @@ export const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(({
     changeFn(!checked)
   }
 
-
   return (
     <label
       className={cn('group flex gap-2 select-none outline-1 outline-offset-4 outline-white focus-visible:outline h-fit', classNames?.label)}
@@ -83,4 +82,4 @@ export const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(({
   )
 })
 
-
+Switch.displayName = 'Switch'

@@ -120,7 +120,6 @@ export class SliderState {
     max: _max,
     initialValues: _initialValues
   }: SliderInitializeMethodArgs) {
-
     // If there are already widths, do not calculate them again
     if (this.widths.getLength()) return
     // If there are no sliders or boundsWidth is 0, do not calculate widths
@@ -170,7 +169,7 @@ export class SliderState {
         ? currentIndexWidth
         : nextIndexWidth
       const newDeltaX = newWidthCurrentIndex < 0
-        ? - lastInBoundsValue
+        ? -lastInBoundsValue
         : lastInBoundsValue
 
       const fixedWidthCurrentIndex = currentIndexWidth + newDeltaX
@@ -188,7 +187,7 @@ export class SliderState {
   }
 
   public updateWidthsWithAbsoluteValue(x: number, sliderX: number | null, index: number | null) {
-    if (!sliderX || !index && index !== 0) return
+    if (!sliderX || (!index && index !== 0)) return
     const currentIndexWidth = this.widths.getWidth(index)
     const nextIndexWidth = this.widths.getWidth(index + 1)
 
@@ -201,7 +200,7 @@ export class SliderState {
         ? currentIndexWidth
         : nextIndexWidth
       const newDeltaX = newCurrentIndexWidth < 0
-        ? - lastInBoundsValue
+        ? -lastInBoundsValue
         : lastInBoundsValue
 
       const fixedWidthCurrentIndex = currentIndexWidth + newDeltaX

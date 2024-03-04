@@ -4,7 +4,7 @@
  * @returns The number of decimal places in the given number.
  */
 export const calculateDecimalsAmount = (number: number) => {
-  if (typeof number !== "number") return 0
+  if (typeof number !== 'number') return 0
 
   const decimalString = number.toString()
 

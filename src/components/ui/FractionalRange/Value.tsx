@@ -8,7 +8,6 @@ export interface ValueProps extends React.DetailedHTMLProps<React.HTMLAttributes
 }
 
 export const Value: React.FC<ValueProps> = ({ children, value: _value, className, ...rest }) => {
-
   const { value } = useFractionalRangeContext()
   const valueSign = (value || 1) > 0
     ? '+'

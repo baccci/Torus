@@ -15,14 +15,14 @@ export const ColorManagement: React.FC = () => {
     redChannel,
     greenChannel,
     blueChannel,
-    colored,
+    colored
   } = useTweaksContext()
   const selected = colored ? COLOR_MANAGEMENT_ITEM_VALUES[1] : COLOR_MANAGEMENT_ITEM_VALUES[0]
 
   // Filter the array to remove invalid values so the arrays are always a group of numbers
-  const safeRedChannel = redChannel.filter(v => v === 0 || v && v >= 0 && v <= 255) as number[]
-  const safeGreenChannel = greenChannel.filter(v => v === 0 || v && v >= 0 && v <= 255) as number[]
-  const safeBlueChannel = blueChannel.filter(v => v === 0 || v && v >= 0 && v <= 255) as number[]
+  const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
+  const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
+  const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
 
   const ColorComponentDisplay = {
     dynamic: <ColorChannels
@@ -33,7 +33,7 @@ export const ColorManagement: React.FC = () => {
       handleGreenChannelChange={handleGreenChannelChange}
       handleBlueChannelChange={handleBlueChannelChange}
     />,
-    white: null,
+    white: null
   }[selected]
 
   return (
@@ -70,13 +70,12 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
   blueChannel,
   handleRedChannelChange,
   handleGreenChannelChange,
-  handleBlueChannelChange,
+  handleBlueChannelChange
 }) => {
-
   // Filter the array to remove invalid values so the arrays are always a group of numbers
-  const safeRedChannel = redChannel.filter(v => v === 0 || v && v >= 0 && v <= 255) as number[]
-  const safeGreenChannel = greenChannel.filter(v => v === 0 || v && v >= 0 && v <= 255) as number[]
-  const safeBlueChannel = blueChannel.filter(v => v === 0 || v && v >= 0 && v <= 255) as number[]
+  const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
+  const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
+  const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
 
   return (
     <div className='flex flex-col gap-2 w-full'>

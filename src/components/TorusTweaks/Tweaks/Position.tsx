@@ -1,4 +1,3 @@
-import React from 'react'
 import { TweakWrapper } from './TweakWrapper'
 import { Range } from '@/components/ui/Range'
 import { useTweaksContext } from '../context'
@@ -11,9 +10,8 @@ export const Position = () => {
     yFixedValue,
     xMovement,
     yMovement,
-    setXMovement,
-    setYMovement,
-    ...events } = useTweaksContext()
+    ...events
+  } = useTweaksContext()
 
   const xFixedValueDisplay = getCoordDisplayValue(xFixedValue)
   const yFixedValueDisplay = getCoordDisplayValue(yFixedValue)

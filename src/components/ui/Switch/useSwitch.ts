@@ -20,7 +20,7 @@ export const useSwitch = ({ checked, defaultChecked, onCheckedChange }: SwitchCo
     isControlled,
     changeFn,
     pressed,
-    setPressed,
+    setPressed
   }
 }
 

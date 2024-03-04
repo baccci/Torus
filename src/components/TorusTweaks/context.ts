@@ -33,8 +33,7 @@ export const useTweaks = (torus: Torus) => {
 
   const handleChangeYFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
-    if (value > HALF_PI) {
-    }
+
     if (value > HALF_PI - CHANGE_RATE && value < HALF_PI + CHANGE_RATE) {
       setYFixedValue(HALF_PI)
       torus.setYRotation(HALF_PI)

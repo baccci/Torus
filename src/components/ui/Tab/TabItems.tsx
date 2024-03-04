@@ -1,8 +1,8 @@
 import React from 'react'
-import { TabItem } from './TabItem'
+import { TabItem, type TabItemProps } from './TabItem'
 
 interface TabItemsProps {
-  items: React.ReactElement<any, string | React.JSXElementConstructor<any>>[]
+  items: React.ReactElement<TabItemProps, string | React.JSXElementConstructor<TabItemProps>>[]
 }
 
 export const TabItems: React.FC<TabItemsProps> = ({ items }) => {

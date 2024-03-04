@@ -1,6 +1,5 @@
 import React, { type DetailedHTMLProps, useImperativeHandle } from 'react'
 import { Root } from './Root'
-import { cn } from '@/lib/tailwindClassMerge'
 import { Input } from './Input'
 
 export type DetailedProps = DetailedHTMLProps<React.HTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -15,10 +14,9 @@ interface RangeProps extends DetailedProps {
   className?: string
   label: React.ReactNode | string
   onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void)
-  onChangeMark?: (value: number) => void
 }
 
-interface Range extends React.ForwardRefExoticComponent<Omit<RangeProps, "ref"> & React.RefAttributes<HTMLInputElement>> {
+interface RangeType extends React.ForwardRefExoticComponent<Omit<RangeProps, 'ref'> & React.RefAttributes<HTMLInputElement>> {
   Root: typeof Root
 }
 
@@ -58,8 +56,9 @@ const forwardRange = React.forwardRef<HTMLInputElement, RangeProps>((
   )
 })
 
+forwardRange.displayName = 'Range'
 
 export const Range = {
   ...forwardRange,
   Root
-} as Range
+} as RangeType

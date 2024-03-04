@@ -84,7 +84,7 @@ const FractionValueDisplay = ({ value, showValue, color }: FractionValueDisplayP
   return (
     <span
       className={cn(
-        `absolute top-[-24px] left-[50%] -translate-x-1/2 text-[12px] text-[${color}] select-none touch-none font-mono`,
+        `absolute top-[-24px] left-[50%] -translate-x-1/2 text-[12px] text-[${color}] select-none touch-none font-mono`
       )}
     >
       {fixedValue}

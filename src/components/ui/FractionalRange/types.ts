@@ -1,3 +1,4 @@
+import type React from 'react'
 import type { DetailedHTMLProps } from 'react'
 import type { ValueProps } from './Value'
 import type { IndicatorDotProps } from './IndicatorDot'
@@ -11,13 +12,6 @@ type LabelProps = {
 } | {
   label: string
   'aria-label'?: string
-}
-
-export type FractionalRangeType = React.FC<FractionalRangeProps> & {
-  Titlebar: React.FC<DetailedProps>
-  Label: React.FC<LabelComponentProps>
-  Value: React.FC<ValueProps>
-  IndicatorDot: React.FC<IndicatorDotProps>
 }
 
 export type Layout = 'none' | 'indicators' | 'shadows' | 'full'
@@ -38,3 +32,10 @@ export type FractionalRangeProps = DetailedProps & {
   fragmentClassName?: string
   layout?: Layout
 } & LabelProps
+
+export type FractionalRangeType = React.FC<FractionalRangeProps> & {
+  Titlebar: React.FC<DetailedProps>
+  Label: React.FC<LabelComponentProps>
+  Value: React.FC<ValueProps>
+  IndicatorDot: React.FC<IndicatorDotProps>
+}

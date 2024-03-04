@@ -11,7 +11,7 @@ interface ShadowProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElem
 export const Shadow: React.FC<ShadowProps> = ({ getVisibleSides, side, className, ...rest }) => {
   return (
     <div
-      className={cn(`absolute top-0 bg-gradient-to-r from-slate-600 to-transparent h-full w-6 pointer-events-none transition-opacity duration-300 opacity-0`,
+      className={cn('absolute top-0 bg-gradient-to-r from-slate-600 to-transparent h-full w-6 pointer-events-none transition-opacity duration-300 opacity-0',
         { 'left-0': side === 'left' },
         { 'right-0': side === 'right' },
         { 'opacity-100': getVisibleSides()?.[side] },

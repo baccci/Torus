@@ -1,5 +1,4 @@
 
-import React from 'react'
 import { TweakWrapper } from './TweakWrapper'
 import { Range } from '@/components/ui/Range'
 import { useTweaksContext } from '../context'

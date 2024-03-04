@@ -14,9 +14,9 @@ export const useGestures = ({ api }: UseGesturesArgs) => {
   const bodyElement = document.querySelector('body')
   const [eventState, setEventState] = React.useState({ pressed: false, previousTouch: null as Touch | null })
 
-  /*-----
+  /* -----
    * Desktop events
-   *------*/
+   *------ */
 
   const handleRangePointerDown = () => {
     setEventState(currentState => ({ ...currentState, pressed: true }))
@@ -34,16 +34,16 @@ export const useGestures = ({ api }: UseGesturesArgs) => {
     api.setCoordinate(currentX + delta)
     setEventState(currentState => ({ ...currentState }))
   },
-    { target: bodyElement as Target }
+  { target: bodyElement as Target }
   )
 
   const handleBodyPointerLeave = () => {
     setEventState(currentState => ({ ...currentState, pressed: false }))
   }
 
-  /*-----
+  /* -----
    * Touch events
-   *------*/
+   *------ */
 
   const handleTouchMove = React.useCallback((event: TouchEvent) => {
     if (!eventState.pressed) return
@@ -65,9 +65,9 @@ export const useGestures = ({ api }: UseGesturesArgs) => {
     setEventState(currentState => ({ ...currentState, previousTouch: null, pressed: false }))
   }
 
-  /*-----
+  /* -----
    * Key events
-   *------*/
+   *------ */
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     const { key } = event
@@ -84,7 +84,6 @@ export const useGestures = ({ api }: UseGesturesArgs) => {
       api.setValue(currentValue + step)
     }
   }
-
 
   React.useLayoutEffect(function bodyEvents() {
     bodyElement?.addEventListener('pointerup', handleRangePointerUp)

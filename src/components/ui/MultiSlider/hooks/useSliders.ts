@@ -28,7 +28,6 @@ export const useSliders = ({
   arrowKeyMajorStep,
   arrowKeyMinorStep
 }: UseSliderArgs) => {
-
   const numberOfSliders = React.useMemo(() => getNumberOfSliders(children, 'Slider'), [children])
   const sliderValuesProps = {
     bounds,

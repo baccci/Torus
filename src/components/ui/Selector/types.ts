@@ -1,3 +1,4 @@
+import type React from 'react'
 import type { DetailedHTMLProps } from 'react'
 
 interface SelectorProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -16,5 +17,5 @@ export interface ItemProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDi
 }
 
 export type SelectorComponent = React.FC<SelectorProps> & {
-  Item: React.ForwardRefExoticComponent<Omit<ItemProps, "ref"> & React.RefAttributes<HTMLDivElement>>
+  Item: React.ForwardRefExoticComponent<Omit<ItemProps, 'ref'> & React.RefAttributes<HTMLDivElement>>
 }

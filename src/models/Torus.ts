@@ -1,3 +1,4 @@
+import type React from 'react'
 import { PI } from '@/constants/constants'
 import { Point } from './Point'
 
@@ -88,16 +89,12 @@ export class Torus {
 
     const { cosX, sinX, cosY, sinY } = this.precomputeTrig()
 
-    let counter = 0
-
     for (let theta = 0; theta < this.thetaLimit; theta += this.thetaIncrement) {
       // j <=> theta
       const cosTheta = Math.cos(theta)
       const sinTheta = Math.sin(theta) // cosine theta, sine theta
 
       for (let phi = 0; phi < this.phiLimit; phi += this.phiIncrement) {
-
-        counter++
         // i <=> phi
         const sinPhi = Math.sin(phi)
         const cosPhi = Math.cos(phi) // cosine phi, sine phi
@@ -223,7 +220,10 @@ export class Torus {
   }
 
   public touchMove(event: React.TouchEvent<HTMLCanvasElement>) {
-    if (!this.previousTouch) return this.previousTouch = event.touches[0]
+    if (!this.previousTouch) {
+      this.previousTouch = event.touches[0]
+      return
+    }
 
     const touch = event.touches[0]
     const movementX = touch.pageX - this.previousTouch.pageX
@@ -405,6 +405,5 @@ export class Torus {
     return { min: this.minBlue, max: this.maxBlue }
   }
 }
-
 
 export default Torus

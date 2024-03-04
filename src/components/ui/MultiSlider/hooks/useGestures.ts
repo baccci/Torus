@@ -27,7 +27,7 @@ export const useGestures = ({ api, arrowKeyMajorStep, arrowKeyMinorStep }: UseGe
   })
 
   useMove(
-    function handleBodyMouseMove({ delta: [dx], xy: [x] }) {
+    function handleBodyMouseMove({ delta: [dx] }) {
       if (!sliderGestureState.dragging) return
 
       api.updateWidthsWithDelta(dx, sliderGestureState.sliderIndex)
@@ -37,7 +37,7 @@ export const useGestures = ({ api, arrowKeyMajorStep, arrowKeyMinorStep }: UseGe
 
   const handleSliderPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     const sliderIndex = Number(e.currentTarget.dataset.index) || 0
-    setSliderGestureState(prevState => ({ ...prevState, sliderIndex: sliderIndex, dragging: true }))
+    setSliderGestureState(prevState => ({ ...prevState, sliderIndex, dragging: true }))
   }
 
   const handleSliderPointerUp = () => {
@@ -63,7 +63,7 @@ export const useGestures = ({ api, arrowKeyMajorStep, arrowKeyMinorStep }: UseGe
     const sliderX = e.currentTarget.getBoundingClientRect().x
     if (!sliderIndex && sliderIndex !== 0) return
 
-    setSliderGestureState(prevState => ({ ...prevState, sliderIndex: sliderIndex, dragging: true, sliderX }))
+    setSliderGestureState(prevState => ({ ...prevState, sliderIndex, dragging: true, sliderX }))
   }
 
   const handleSliderArrowKeys = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -78,10 +78,10 @@ export const useGestures = ({ api, arrowKeyMajorStep, arrowKeyMinorStep }: UseGe
     const key = e.key
 
     const action = {
-      'ArrowLeft': () => api.addToValue(sliderIndex, - value),
-      'ArrowRight': () => api.addToValue(sliderIndex, + value),
-      'Home': () => api.setValueToMin(sliderIndex),
-      'End': () => api.setValueToMax(sliderIndex)
+      ArrowLeft: () => api.addToValue(sliderIndex, -value),
+      ArrowRight: () => api.addToValue(sliderIndex, +value),
+      Home: () => api.setValueToMin(sliderIndex),
+      End: () => api.setValueToMax(sliderIndex)
     }[key]
 
     if (action) {

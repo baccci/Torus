@@ -22,7 +22,6 @@ export const useSlidersValues = ({
   max,
   min
 }: UseSliderArgs) => {
-
   const api = React.useRef(new SliderState()).current
 
   api.init({

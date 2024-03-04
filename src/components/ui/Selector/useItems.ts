@@ -11,13 +11,13 @@ interface UseItemsArgs {
 
 /*
   Controls the state of the items and the selected item,
-  injecting the necessary props to the items 
+  injecting the necessary props to the items
 */
 
 export const useItems = ({
   children,
   controlledSelected,
-  onSelectedChange,
+  onSelectedChange
 }: UseItemsArgs) => {
   const [uncontrolledSelected, setUncontrolledSelected] = useState<string>('')
   const selected = controlledSelected ?? uncontrolledSelected
@@ -42,7 +42,7 @@ export const useItems = ({
       ...item.props,
       selected: selected === itemValue,
       onClick: () => updateSelected(itemValue),
-      ref: selected === itemValue ? selectedRef : null,
+      ref: selected === itemValue ? selectedRef : null
     })
   })
 

@@ -1,6 +1,5 @@
 import { cn } from '@/lib/tailwindClassMerge'
 import React from 'react'
-import { Marked } from './Marked'
 import type { DetailedProps } from './Range'
 
 interface InputProps extends DetailedProps {
@@ -11,7 +10,6 @@ interface InputProps extends DetailedProps {
   id: string
   className?: string
   onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void)
-  onChangeMark?: (value: number) => void
   inputRef: React.RefObject<HTMLInputElement>
   ariaLabel?: string
 }
@@ -31,7 +29,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <input
       id={id}
-      type="range"
+      type='range'
       min={min}
       max={max}
       value={value}
@@ -58,17 +56,5 @@ export const Input: React.FC<InputProps> = ({
       )}
       {...rest}
     />
-  )
-}
-
-const MarkedInput: React.FC<InputProps> = ({ id, min, max, value, onChangeMark, step, inputRef, ariaLabel, className }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  return (
-    <div className='w-full relative'>
-      <div className='w-full overflow-hidden flex h-10' ref={containerRef}>
-        <Marked max={max} min={min} step={step} value={value} containerRef={containerRef} onChangeMark={onChangeMark} />
-      </div>
-      <span className='size-1 rounded-full bg-[#7E80B4] absolute bottom-[-15px] left-1/2 -translate-x-[50%]' />
-    </div>
   )
 }

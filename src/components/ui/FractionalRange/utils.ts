@@ -20,7 +20,7 @@ export const coordinateToValue = ({
   if (!boundsWidth || !fractionWidth) return 0
 
   const stepAmount = (new Decimal(max).minus(min)).div(step).toNumber()
-  const relInputValue = - (new Decimal(stepAmount).mul(new Decimal(x).minus(new Decimal(boundsWidth).div(2)))).div(fractionWidth).toNumber()
+  const relInputValue = -(new Decimal(stepAmount).mul(new Decimal(x).minus(new Decimal(boundsWidth).div(2)))).div(fractionWidth).toNumber()
 
   return new Decimal(relInputValue).mul(step).plus(min).toNumber()
 }

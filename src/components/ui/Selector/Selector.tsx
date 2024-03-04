@@ -28,7 +28,7 @@ export const Selector: SelectorComponent = ({
       >
         <span
           className={cn(
-            'absolute [height:calc(100%-4px)] top-0.5 bg-white/15 transition-all duration-200 rounded-[10px] ease-out',
+            'absolute [height:calc(100%-4px)] top-0.5 bg-white/15 transition-all duration-200 rounded-[10px] ease-out'
           )}
           style={{ left: xCoord, width }}
         />

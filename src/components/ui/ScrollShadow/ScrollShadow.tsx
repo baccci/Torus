@@ -40,26 +40,26 @@ export function ScrollShadowWrapper(props: ScrollShadowWrapperProps) {
 
     return {
       top: (isBottom || isBetween) && !(isTop && isBottom),
-      bottom: (isTop || isBetween) && !(isTop && isBottom),
+      bottom: (isTop || isBetween) && !(isTop && isBottom)
     }
   }
 
   return (
     <div
-      data-testid="scroll-shadow-wrapper"
+      data-testid='scroll-shadow-wrapper'
       ref={wrapperRef}
       style={style}
       className={`relative overflow-y-auto pr-[1px] ${className}`}
       onScroll={onScrollHandler}
     >
       <div
-        data-testid="scroll-shadow-top"
+        data-testid='scroll-shadow-top'
         className={`sticky top-0 bg-scroll-shadow-up w-full h-4 -mb-4 pointer-events-none transition-opacity duration-300 ${getVisibleSides().top ? 'opacity-100' : 'opacity-0'
           }`}
       />
       {children}
       <div
-        data-testid="scroll-shadow-bottom"
+        data-testid='scroll-shadow-bottom'
         className={`sticky bottom-0 bg-scroll-shadow-bottom w-full h-4 -mt-4 pointer-events-none rotate-180 transition-opacity duration-300 ${getVisibleSides().bottom ? 'opacity-100' : 'opacity-0'
           }`}
       />

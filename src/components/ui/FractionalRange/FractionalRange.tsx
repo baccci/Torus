@@ -19,13 +19,13 @@ export const FractionalRange: FractionalRangeType = (props) => {
   const {
     className,
     label,
-    "aria-label": _ariaLabel,
+    'aria-label': _ariaLabel,
     max,
     min,
     step,
     sound = false,
     layout = 'none',
-    children,
+    children
   } = props
 
   const [wrapperRef, { width: boundsWidth }] = useMeasure()
@@ -54,7 +54,9 @@ export const FractionalRange: FractionalRangeType = (props) => {
         ref={wrapperRef}
         {...htmlProps}
       >
-        <Layout layout={layout} children={children} />
+        <Layout layout={layout}>
+          {children}
+        </Layout>
         <animated.div
           className='flex gap-1.5 items-end will-change-transform cursor-ew-resize pt-4 pb-2 focus-visible:outline-offset-[16px]'
           role='slider'
@@ -114,6 +116,6 @@ function propsInjection(props: FractionalRangeProps & { boundsWidth: number, fra
   return {
     useValuesArgs,
     htmlProps: rest,
-    contextProps: props,
+    contextProps: props
   }
 }

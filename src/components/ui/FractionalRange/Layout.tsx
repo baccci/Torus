@@ -11,7 +11,7 @@ const LAYOUT_DISPLAYNAMES = {
   Value: 'Value',
   Titlebar: 'Titlebar',
   Shadows: 'Shadows',
-  IndicatorDot: 'IndicatorDot',
+  IndicatorDot: 'IndicatorDot'
 }
 
 interface LayoutProps {
@@ -20,7 +20,6 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children, layout }) => {
-
   const thereIsChildren = React.useMemo(() => searchForLayoutChildren(children), [children])
 
   const Components = {
