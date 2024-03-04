@@ -95,10 +95,12 @@ export const ColorSlider: React.FC<ColorSliderProps> = ({
 
 const usePrintColorsOnMount = (values: number[] | undefined, handleColorChange: (values: number[]) => void) => {
   const initialValues = React.useRef(values)
+  const initalFunction = React.useRef(handleColorChange)
+
   const printColorsOnMount = React.useCallback(() => {
     if (!initialValues.current) return
-    handleColorChange(initialValues.current)
-  }, [handleColorChange, initialValues])
+    initalFunction.current(initialValues.current)
+  }, [])
 
   React.useLayoutEffect(() => {
     printColorsOnMount()
