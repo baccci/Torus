@@ -32,8 +32,18 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.7.0",
     "@types/howler": "^2.2.11",
     "@types/react": "^18.2.47",
-    "eslint-config-astro-svelte-jsdoc-standard": "^1.0.6"
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-astro-svelte-jsdoc-standard": "^1.0.6",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-astro": "^0.31.4",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "ts-standard": "^12.0.2"
   }
 }
