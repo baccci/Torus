@@ -1,72 +1,73 @@
 ---
 interface Props {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }
 
-const { title, description } = Astro.props
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset='UTF-8' />
-    <meta name='description' content={description} />
-    <meta name='viewport' content='width=device-width' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='generator' content={Astro.generator} />
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body
-    class={`bg-neutral-950 pb-2 sm:pb-4
-  bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.2),rgba(255,255,255,0))]`}
-  >
-    <slot class='z-[1]' />
+  <body class={`bg-neutral-950 pb-2 sm:pb-4`}>
+    <div
+      class="absolute top-0 inset-x-0 h-[100vh] bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgba(120,119,198,0.22),rgba(255,255,255,0))]"
+    >
+    </div>
+    <slot class="z-[1]" />
   </body>
 </html>
 <style is:global>
   @font-face {
-    font-family: 'GeistMono';
+    font-family: "GeistMono";
     src:
-      url('/fonts/Geist.Mono/GeistMono-Regular.woff2') format('woff2'),
-      url('/fonts/Geist.Mono/GeistMono-Regular.woff') format('woff');
+      url("/fonts/Geist.Mono/GeistMono-Regular.woff2") format("woff2"),
+      url("/fonts/Geist.Mono/GeistMono-Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
   }
 
   @font-face {
-    font-family: 'Geist';
+    font-family: "Geist";
     src:
-      url('/fonts/Geist/Geist-Regular.woff2') format('woff2'),
-      url('/fonts/Geist/Geist-Regular.woff') format('woff');
+      url("/fonts/Geist/Geist-Regular.woff2") format("woff2"),
+      url("/fonts/Geist/Geist-Regular.woff") format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
-    font-family: 'Geist';
+    font-family: "Geist";
     src:
-      url('/fonts/Geist/Geist-Bold.woff2') format('woff2'),
-      url('/fonts/Geist/Geist-Bold.woff') format('woff');
+      url("/fonts/Geist/Geist-Bold.woff2") format("woff2"),
+      url("/fonts/Geist/Geist-Bold.woff") format("woff");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
-    font-family: 'Geist';
+    font-family: "Geist";
     src:
-      url('/fonts/Geist/Geist-Medium.woff2') format('woff2'),
-      url('/fonts/Geist/Geist-Medium.woff') format('woff');
+      url("/fonts/Geist/Geist-Medium.woff2") format("woff2"),
+      url("/fonts/Geist/Geist-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
   }
   @font-face {
-    font-family: 'Geist';
+    font-family: "Geist";
     src:
-      url('/fonts/Geist/Geist-SemiBold.woff2') format('woff2'),
-      url('/fonts/Geist/Geist-SemiBold.woff') format('woff');
+      url("/fonts/Geist/Geist-SemiBold.woff2") format("woff2"),
+      url("/fonts/Geist/Geist-SemiBold.woff") format("woff");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -84,7 +85,7 @@ const { title, description } = Astro.props
     );
   }
   html {
-    font-family: 'Geist', system-ui, sans-serif;
+    font-family: "Geist", system-ui, sans-serif;
     background: #13151a;
     background-size: 224px;
     min-height: 100vh;
