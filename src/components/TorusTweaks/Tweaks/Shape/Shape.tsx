@@ -1,8 +1,9 @@
 
-import { TweakWrapper } from './TweakWrapper'
+import { TweakWrapper } from '../TweakWrapper'
 import { Range } from '@/components/ui/Range'
-import { useTweaksContext } from '../context'
+import { useTweaksContext } from '../../context'
 import { PI } from '@/constants/constants'
+import { PointShapeSelector } from './PointShapeSelector'
 
 export const Shape = () => {
   const { theta, phi, outerRadius, innerRadius, ...tweaks } = useTweaksContext()
@@ -60,6 +61,7 @@ export const Shape = () => {
             onChange={tweaks.handleInnerRadiusChange}
           />
         </Range.Root>
+        <PointShapeSelector />
       </TweakWrapper>
     </div>
   )
