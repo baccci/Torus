@@ -8,6 +8,7 @@ interface UseSelectedItemDataArgs {
 export const useSelectedItemData = ({ selectedRef, selected }: UseSelectedItemDataArgs) => {
   const [xCoord, setXCoord] = React.useState<number>(0)
   const [width, setWidth] = React.useState<number>(0)
+  const [readyToAnimate, setReadyToAnimate] = React.useState<boolean>(false)
 
   React.useLayoutEffect(() => {
     if (!selectedRef.current) return
@@ -21,5 +22,22 @@ export const useSelectedItemData = ({ selectedRef, selected }: UseSelectedItemDa
     setWidth(width || 0)
   }, [selected, selectedRef])
 
-  return { xCoord, width }
+  useAfterMount(() => {
+    setReadyToAnimate(true)
+  })
+
+  return { xCoord, width, readyToAnimate }
+}
+
+function useAfterMount(callback: () => void) {
+  const hasMounted = React.useRef(false)
+
+  React.useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true
+      return
+    }
+
+    callback()
+  }, [callback])
 }

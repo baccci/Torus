@@ -13,7 +13,7 @@ export const Selector: SelectorComponent = ({
   ...rest
 }) => {
   const { items, selected, selectedRef } = useItems({ children, controlledSelected, onSelectedChange })
-  const { xCoord, width } = useSelectedItemData({ selectedRef, selected })
+  const { xCoord, width, readyToAnimate } = useSelectedItemData({ selectedRef, selected })
 
   return (
     <label className='flex flex-col gap-2'>
@@ -28,8 +28,9 @@ export const Selector: SelectorComponent = ({
         {...rest}
       >
         <span
+          data-readytoanimate={readyToAnimate}
           className={cn(
-            'absolute [height:calc(100%-4px)] top-0.5 bg-white/15 transition-all duration-200 rounded-[10px] ease-out'
+            'absolute [height:calc(100%-4px)] top-0.5 bg-white/15 data-[readytoanimate="true"]:transition-all data-[readytoanimate="true"]:duration-200 rounded-[10px] ease-out'
           )}
           style={{ left: xCoord, width }}
         />
