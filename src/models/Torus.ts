@@ -18,6 +18,7 @@ export interface TorusArgs {
 
 export class Torus {
   private context: CanvasRenderingContext2D | null = null
+  private canvasRef: React.RefObject<HTMLCanvasElement> | null = null
   private xIncrement = 0
   private yIncrement = 0
   private xRotation = PI / 2
@@ -219,18 +220,32 @@ export class Torus {
     this.draw()
   }
 
-  public touchMove(event: React.TouchEvent<HTMLCanvasElement>) {
+  public setCanvasRef(canvasRef: React.RefObject<HTMLCanvasElement>) {
+    if (!canvasRef.current) return
+    this.canvasRef = canvasRef
+
+    // Add non passive event listeners for touch events
+    canvasRef.current?.addEventListener(
+      'touchmove',
+      (e) => this.touchMove(e),
+      { passive: false }
+    )
+  }
+
+  public touchMove(event: TouchEvent) {
     if (!this.previousTouch) {
       this.previousTouch = event.touches[0]
       return
     }
 
+    event.preventDefault()
     const touch = event.touches[0]
     const movementX = touch.pageX - this.previousTouch.pageX
     const movementY = touch.pageY - this.previousTouch.pageY
 
     this.xRotation += movementY / 500
     this.yRotation += movementX / 500
+
     this.draw()
   }
 

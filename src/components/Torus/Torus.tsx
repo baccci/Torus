@@ -12,6 +12,7 @@ export const Torus: React.FC<TorusProps> = ({ torus }) => {
   const ctx = useCanvasContext({ canvasRef })
   const isSticky = useIsSticky(canvasRef)
   torus.setContext(ctx)
+  torus.setCanvasRef(canvasRef)
 
   torus.draw()
 
@@ -19,10 +20,6 @@ export const Torus: React.FC<TorusProps> = ({ torus }) => {
   const handleStartMovement = () => torus.setCliking(true)
   const handleMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     torus.mouseMove(e)
-  }
-
-  const handleCanvasTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
-    torus.touchMove(e)
   }
 
   return (
@@ -40,7 +37,6 @@ export const Torus: React.FC<TorusProps> = ({ torus }) => {
         onMouseLeave={handleStopMovement}
         onMouseDown={handleStartMovement}
         onMouseMove={handleMove}
-        onTouchMove={handleCanvasTouch}
         ref={canvasRef}
         key={'torus-canvas'}
       >
