@@ -25,7 +25,7 @@ export const useScrollShadow = (disableShadow?: boolean) => {
     }
 
     resetRefSizes(wrapperRef)
-  }, [wrapperRef?.current?.clientWidth])
+  }, [wrapperRef?.current?.clientWidth, disableShadow])
 
   const getVisibleSides = () => {
     if (disableShadow) return { left: false, right: false }

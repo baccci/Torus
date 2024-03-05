@@ -1,7 +1,8 @@
 import getChildrenOnDisplayName from '@/lib/getComponentChildrens'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React from 'react'
 import { ITEM_NAME } from './Item'
 import type { ItemProps } from './types'
+import { useOnMount } from '@/hooks/useOnMount'
 
 interface UseItemsArgs {
   children: React.ReactNode
@@ -19,22 +20,22 @@ export const useItems = ({
   controlledSelected,
   onSelectedChange
 }: UseItemsArgs) => {
-  const [uncontrolledSelected, setUncontrolledSelected] = useState<string>('')
+  const [uncontrolledSelected, setUncontrolledSelected] = React.useState<string>('')
   const selected = controlledSelected ?? uncontrolledSelected
-  const selectedRef = useRef<HTMLDivElement>(null)
+  const selectedRef = React.useRef<HTMLDivElement>(null)
 
   function updateSelected(index: string) {
     if (controlledSelected) return onSelectedChange?.(index)
     setUncontrolledSelected(index)
   }
 
-  const rawItems = useMemo(() => getChildrenOnDisplayName<ItemProps>(children, ITEM_NAME), [children])
+  const rawItems = React.useMemo(() => getChildrenOnDisplayName<ItemProps>(children, ITEM_NAME), [children])
 
-  useEffect(() => {
+  useOnMount(() => {
     if (selected || !rawItems.length) return
     const firstItem = rawItems[0].props.value
     updateSelected(firstItem)
-  }, [])
+  }, 'layout')
 
   const items: typeof rawItems = rawItems.map((item) => {
     const itemValue = item.props.value

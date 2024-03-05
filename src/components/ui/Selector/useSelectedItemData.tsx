@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 interface UseSelectedItemDataArgs {
   selectedRef: React.MutableRefObject<HTMLDivElement | null>
@@ -9,7 +9,7 @@ export const useSelectedItemData = ({ selectedRef, selected }: UseSelectedItemDa
   const [xCoord, setXCoord] = React.useState<number>(0)
   const [width, setWidth] = React.useState<number>(0)
 
-  useEffect(() => {
+  React.useLayoutEffect(() => {
     if (!selectedRef.current) return
 
     const { x, width } = selectedRef.current.getBoundingClientRect()
@@ -19,7 +19,7 @@ export const useSelectedItemData = ({ selectedRef, selected }: UseSelectedItemDa
 
     setXCoord(xRelativeToParent - 1 || 0)
     setWidth(width || 0)
-  }, [selected])
+  }, [selected, selectedRef])
 
   return { xCoord, width }
 }
