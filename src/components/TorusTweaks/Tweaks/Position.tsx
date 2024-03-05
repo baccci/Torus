@@ -52,8 +52,8 @@ export const Position = () => {
             value={xMovement}
             customValueDisplay={xMovement * 1000}
             min={0}
-            max={0.1}
-            step={0.001}
+            max={0.01}
+            step={0.0001}
             label='X movement'
             aria-label='X movement'
             onChange={events.handleChangeXMovement}
@@ -65,8 +65,8 @@ export const Position = () => {
             value={yMovement}
             customValueDisplay={yMovement * 1000}
             min={0}
-            max={0.1}
-            step={0.001}
+            max={0.01}
+            step={0.0001}
             label='Y movement'
             onChange={events.handleChangeYMovement}
           />
