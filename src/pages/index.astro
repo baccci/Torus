@@ -1,33 +1,33 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { GithubIcon } from '@/components/ui/Icons'
-import { TorusWrapper } from '@/components/TorusWrapper/TorusWrapper'
+import Layout from "../layouts/Layout.astro";
+import { GithubIcon } from "@/components/ui/Icons";
+import { TorusWrapper } from "@/components/TorusWrapper/TorusWrapper";
 ---
 
-<Layout title='Torus 🍩' description='A spinning donut'>
+<Layout title="Torus 🍩" description="A spinning donut">
   <main
-    class='w-full h-auto pt-4 sm:px-32 sm:pt-16 pb-2 sm:pb-4 text-slate-200 flex flex-col items-center'
+    class="w-full h-auto pt-4 sm:px-32 sm:pt-16 pb-2 sm:pb-4 text-slate-200 flex flex-col items-center"
   >
     <h1
-      class='text-5xl mt-20 mb-4 font-bold bg-gradient-to-b from-[#f2f2ff] to-[#b09ef6] bg-clip-text text-transparent tracking-tight'
+      class="text-5xl mt-20 mb-4 font-bold bg-gradient-to-b from-[#f2f2ff] to-[#b09ef6] bg-clip-text text-transparent tracking-tight"
     >
       Torus
     </h1>
     <p
-      class='sm:text-lg flex gap-1 tracking-tight text-slate-400/90 text-pretty'
+      class="sm:text-lg flex gap-1 tracking-tight text-slate-400/90 text-pretty"
     >
       Circlular solid of revolution
     </p>
-    <TorusWrapper client:load />
+    <TorusWrapper client:only />
   </main>
   <footer
-    class='mt-auto flex justify-center text-slate-300 text-sm items-center pt-8 pb-4 sm:pb-2'
+    class="mt-auto flex justify-center text-slate-300 text-sm items-center pt-8 pb-4 sm:pb-2"
   >
     Made with 🧉 by&nbsp;
-    <span class='hover:underline'>
-      <a href='https://github.com/baccci' class='flex'>
+    <span class="hover:underline">
+      <a href="https://github.com/baccci" class="flex">
         Salvador Bacci
-        <GithubIcon className='fill-slate-100' size={20} />
+        <GithubIcon className="fill-slate-100" size={20} />
       </a>
     </span>
   </footer>
