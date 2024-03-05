@@ -17,9 +17,9 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class={`bg-neutral-950 pb-2 sm:pb-4`}>
+  <body class={`bg-neutral-950 pb-2 sm:pb-4 min-h-screen`}>
     <div
-      class="absolute top-0 inset-x-0 h-[100vh] bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgba(120,119,198,0.22),rgba(255,255,255,0))]"
+      class="absolute pointer-events-none h-full top-0 inset-x-0 bg-[radial-gradient(ellipse_80%_100%_at_50%_-20%,rgba(120,119,198,0.22),rgba(255,255,255,0))]"
     >
     </div>
     <slot class="z-[1]" />
@@ -84,16 +84,14 @@ const { title, description } = Astro.props;
       white 60%
     );
   }
+
   html {
     font-family: "Geist", system-ui, sans-serif;
     background: #13151a;
-    background-size: 224px;
-    min-height: 100vh;
-    width: 100%;
     margin: 0;
     padding: 0;
-    overflow: auto;
   }
+
   code {
     font-family:
       Menlo,
