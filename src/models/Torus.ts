@@ -1,6 +1,7 @@
 import type React from 'react'
 import { PI } from '@/constants/constants'
 import { Point } from './Point'
+import type { PointShape } from '@/types/types'
 
 export interface TorusArgs {
   context?: CanvasRenderingContext2D | null
@@ -43,7 +44,7 @@ export class Torus {
   private maxGreen?: number = 120
   private minBlue?: number = 120
   private maxBlue?: number = 220
-  private point?: 'square' | 'circle'
+  private pointShape: PointShape = 'square'
   private luminanceEnhance?: number = 1.2
 
   constructor({
@@ -148,7 +149,8 @@ export class Torus {
             minGreen: this.minGreen,
             maxGreen: this.maxGreen,
             minBlue: this.minBlue,
-            maxBlue: this.maxBlue
+            maxBlue: this.maxBlue,
+            pointShape: this.pointShape
           })
 
           point.draw()
@@ -350,6 +352,15 @@ export class Torus {
     this.minBlue = min
     this.maxBlue = max
     this.draw()
+  }
+
+  public setPointShape(pointShape: PointShape) {
+    this.pointShape = pointShape
+    this.draw()
+  }
+
+  public get getPointShape() {
+    return this.pointShape
   }
 
   public get getXIncrement() {

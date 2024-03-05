@@ -1,7 +1,8 @@
-import { CHANGE_RATE, HALF_PI, PI } from '@/constants/constants'
+import { CHANGE_RATE, HALF_PI, PI, POINT_SHAPES } from '@/constants/constants'
 import { COLOR_MANAGEMENT_ITEM_VALUES } from './Tweaks/constants'
-import type Torus from '@/models/Torus'
 import React from 'react'
+import type Torus from '@/models/Torus'
+import type { PointShape } from '@/types/types'
 
 export const useTweaks = (torus: Torus) => {
   const [xFixedValue, setXFixedValue] = React.useState(HALF_PI)
@@ -19,6 +20,7 @@ export const useTweaks = (torus: Torus) => {
   const [redChannel, setRedChannel] = React.useState([torus.getRedChannel.min, torus.getRedChannel.max])
   const [greenChannel, setGreenChannel] = React.useState([torus.getGreenChannel.min, torus.getGreenChannel.max])
   const [blueChannel, setBlueChannel] = React.useState([torus.getBlueChannel.min, torus.getBlueChannel.max])
+  const [pointShape, setPointShape] = React.useState<PointShape>(torus.getPointShape)
 
   const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
@@ -106,13 +108,23 @@ export const useTweaks = (torus: Torus) => {
     setRedChannel(value)
     torus.setRedChannel(value[0], value[1])
   }
+
   const handleGreenChannelChange = (value: number[]) => {
     setGreenChannel(value)
     torus.setGreenChannel(value[0], value[1])
   }
+
   const handleBlueChannelChange = (value: number[]) => {
     setBlueChannel(value)
     torus.setBlueChannel(value[0], value[1])
+  }
+
+  const handlePointShapeChange = (value: string) => {
+    const valueExistsInEnum = Object.values(POINT_SHAPES).includes(value as PointShape)
+    if (!valueExistsInEnum) return
+
+    setPointShape(value as PointShape)
+    torus.setPointShape(value as PointShape)
   }
 
   return {
@@ -132,6 +144,7 @@ export const useTweaks = (torus: Torus) => {
     redChannel,
     greenChannel,
     blueChannel,
+    pointShape,
     setColored,
     setXMovement,
     setYMovement,
@@ -145,6 +158,7 @@ export const useTweaks = (torus: Torus) => {
     setRedChannel,
     setGreenChannel,
     setBlueChannel,
+    setPointShape,
     handleChangeXFixedValue,
     handleChangeYFixedValue,
     handleChangeXMovement,
@@ -159,7 +173,8 @@ export const useTweaks = (torus: Torus) => {
     handleColoredChange,
     handleRedChannelChange,
     handleGreenChannelChange,
-    handleBlueChannelChange
+    handleBlueChannelChange,
+    handlePointShapeChange
   }
 }
 

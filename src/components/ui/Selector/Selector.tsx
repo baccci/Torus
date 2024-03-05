@@ -19,6 +19,7 @@ export const Selector: SelectorComponent = ({
     <label className='flex flex-col gap-2'>
       {label}
       <div
+        tabIndex={0}
         role='tablist'
         className={cn(
           'h-10 bg-black flex gap-0.5 p-0.5 rounded-xl items-center border-borderblack border relative overflow-hidden',

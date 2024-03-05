@@ -2,6 +2,7 @@ import { TweakWrapper } from '../TweakWrapper'
 import { useTweaksContext } from '../../context'
 import { FractionalRange } from '@/components/ui/FractionalRange/FractionalRange'
 import { ColorManagement } from './ColorManagement'
+import { PointShapeSelector } from './PointShapeSelector'
 
 export const Appearence = () => {
   const {
@@ -24,6 +25,7 @@ export const Appearence = () => {
         layout='full'
         sound
       />
+      <PointShapeSelector />
       <ColorManagement />
     </TweakWrapper>
   )

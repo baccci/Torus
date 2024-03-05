@@ -13,6 +13,7 @@ export const Item = forwardRef<HTMLDivElement, ItemProps>(function Item(props, r
         { 'opacity-100': selected },
         className
       )}
+      tabIndex={0}
       ref={ref}
       title={title ?? value}
       role='tab'

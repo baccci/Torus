@@ -1,3 +1,5 @@
+import type { PointShape } from '@/types/types'
+
 interface PointArgs {
   context?: CanvasRenderingContext2D | null
   x?: number
@@ -14,7 +16,7 @@ interface PointArgs {
   minBlue?: number
   maxBlue?: number
   colored?: boolean
-  point?: 'square' | 'circle'
+  pointShape?: PointShape
   luminanceEnhance?: number
 }
 
@@ -34,7 +36,7 @@ export class Point {
   public minBlue = 120
   public maxBlue = 220
   public colored = false
-  public point: 'square' | 'circle' = 'square'
+  public pointShape: PointShape = 'square'
   public luminanceEnhance = 1
 
   constructor({
@@ -53,7 +55,7 @@ export class Point {
     minBlue,
     maxBlue,
     colored,
-    point,
+    pointShape,
     luminanceEnhance
   }: PointArgs) {
     this.context = context || this.context
@@ -71,7 +73,7 @@ export class Point {
     this.minBlue = minBlue || this.minBlue
     this.maxBlue = maxBlue || this.maxBlue
     this.colored = colored || this.colored
-    this.point = point || this.point
+    this.pointShape = pointShape || this.pointShape
 
     this.luminanceEnhance = luminanceEnhance || this.luminanceEnhance
   }
@@ -90,8 +92,8 @@ export class Point {
     this.context.beginPath()
     if (this.colored) this.context.fillStyle = `rgba(${red}, ${green}, ${blue}, ${luminance})`
 
-    if (this.point === 'square') this.context.rect(this.xp, this.yp, this.pointSize, this.pointSize)
-    if (this.point === 'circle') this.context.arc(this.xp, this.yp, this.pointSize / 2, 0, 2 * Math.PI)
+    if (this.pointShape === 'square') this.context.rect(this.xp, this.yp, this.pointSize, this.pointSize)
+    if (this.pointShape === 'circle') this.context.arc(this.xp, this.yp, this.pointSize / 2, 0, 2 * Math.PI)
 
     this.context.fill()
   }
@@ -164,7 +166,7 @@ export class Point {
     minBlue,
     maxBlue,
     colored,
-    point,
+    pointShape,
     luminanceEnhance
   }: PointArgs) {
     this.x = x || this.x
@@ -181,7 +183,7 @@ export class Point {
     this.minBlue = minBlue || this.minBlue
     this.maxBlue = maxBlue || this.maxBlue
     this.colored = colored || this.colored
-    this.point = point || this.point
+    this.pointShape = pointShape || this.pointShape
     this.luminanceEnhance = luminanceEnhance || this.luminanceEnhance
   }
 }

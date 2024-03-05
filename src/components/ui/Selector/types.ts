@@ -4,7 +4,7 @@ import type { DetailedHTMLProps } from 'react'
 interface SelectorProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: React.ReactNode
   selected?: string
-  onSelectedChange?: (index: string) => void
+  onSelectedChange?: (value: string) => void
   label?: string
 }
 
