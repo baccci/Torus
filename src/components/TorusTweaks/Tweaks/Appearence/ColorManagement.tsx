@@ -1,11 +1,13 @@
-import { Selector } from '@/components/ui/Selector/Selector'
 import React from 'react'
+import { Selector } from '@/components/ui/Selector/Selector'
 import { ColorSlider } from './ColorSlider'
 import { CircleFilledIcon } from '@/components/ui/Icons/CircleFilledIcon'
 import { useTweaksContext } from '../../context'
 import { COLOR_MANAGEMENT_ITEM_VALUES } from '../constants'
 import { Card } from '@/components/ui/Card'
 import { useTweaks } from '@/stores/tweaks'
+import { useOnMount } from '@/hooks/useOnMount'
+import AnimateHeight, { type Height } from 'react-animate-height'
 
 export const ColorManagement: React.FC = () => {
   const {
@@ -75,46 +77,65 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
   handleGreenChannelChange,
   handleBlueChannelChange
 }) => {
+  const height = useHeigth()
+
   // Filter the array to remove invalid values so the arrays are always a group of numbers
   const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
   const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
   const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
 
   return (
-    <div className='flex flex-col gap-2 w-full'>
-      <div className='w-full flex flex-col gap-2 lg:gap-0 lg:flex-row justify-between'>
-        <ColorSlider
-          label='Red channel'
-          hue={0}
-          className='w-full lg:w-[32.5%] p-4 lg:p-6'
-          saturation={80}
-          onValueChange={handleRedChannelChange}
-          values={safeRedChannel}
-        />
-        <ColorSlider
-          label='Green channel'
-          hue={120}
-          className='w-full lg:w-[32.5%] p-4 lg:p-6'
-          saturation={80}
-          onValueChange={handleGreenChannelChange}
-          values={safeGreenChannel}
-        />
-        <ColorSlider
-          label='Blue channel'
-          hue={240}
-          className='w-full lg:w-[32.5%] p-4 lg:p-6'
-          saturation={80}
-          onValueChange={handleBlueChannelChange}
-          values={safeBlueChannel}
-        />
+    <AnimateHeight
+      height={height}
+      duration={200}
+      className='w-full'
+      easing='ease-in-out'
+    >
+      <div className='flex flex-col gap-2 w-full'>
+        <div className='w-full flex flex-col gap-2 lg:gap-0 lg:flex-row justify-between'>
+          <ColorSlider
+            label='Red channel'
+            hue={0}
+            className='w-full lg:w-[32.5%] p-4 lg:p-6'
+            saturation={80}
+            onValueChange={handleRedChannelChange}
+            values={safeRedChannel}
+          />
+          <ColorSlider
+            label='Green channel'
+            hue={120}
+            className='w-full lg:w-[32.5%] p-4 lg:p-6'
+            saturation={80}
+            onValueChange={handleGreenChannelChange}
+            values={safeGreenChannel}
+          />
+          <ColorSlider
+            label='Blue channel'
+            hue={240}
+            className='w-full lg:w-[32.5%] p-4 lg:p-6'
+            saturation={80}
+            onValueChange={handleBlueChannelChange}
+            values={safeBlueChannel}
+          />
+        </div>
+        <Card>
+          <h3 className='text-xl mb-3'>Dynamic Colors</h3>
+          <p className='text-white/50 text-pretty'>
+            Dynamics colors are a combination of red, green and blue channels.
+            Each channel is affected by the Y axis (or altitud) of the torus.
+          </p>
+        </Card>
       </div>
-      <Card>
-        <h3 className='text-xl mb-3'>Dynamic Colors</h3>
-        <p className='text-white/50 text-pretty'>
-          Dynamics colors are a combination of red, green and blue channels.
-          Each channel is affected by the Y axis (or altitud) of the torus.
-        </p>
-      </Card>
-    </div>
+    </AnimateHeight>
   )
+}
+
+function useHeigth (): Height {
+  const [height, setHeight] = React.useState<Height>(0)
+
+  useOnMount(() => {
+    setHeight('auto')
+  })
+
+  return height
 }

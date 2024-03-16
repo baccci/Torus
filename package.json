@@ -1,7 +1,7 @@
 {
   "name": "torus",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A simple 3D torus",
   "author": "Salvador Bacci",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "decimal.js": "^10.4.3",
     "howler": "^2.2.4",
     "react": "^18.2.0",
+    "react-animate-height": "^3.2.3",
     "react-dom": "^18.2.0",
     "react-use-measure": "^2.1.1",
     "tailwind-merge": "^2.2.0",
