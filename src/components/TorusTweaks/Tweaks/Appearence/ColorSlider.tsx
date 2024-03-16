@@ -70,7 +70,7 @@ export const ColorSlider: React.FC<ColorSliderProps> = ({
       <MultiSlider
         className={cn('w-full h-8 [--slider-thumb-ring-color:#222]')}
         onValueChange={handleColorChange}
-        min={0}
+        min={1}
         max={255}
         values={values}
         disabled={disabled}
