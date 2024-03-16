@@ -42,7 +42,6 @@ interface FractionProps {
 const Fraction: React.FC<FractionProps> = ({ size, value }) => {
   const { color, activeColor, currentValue, fragmentClassName } = useFractionalRangeContext()
 
-  const fractionHeight = size === 1 ? 'h-2' : 'h-3'
   const currentValuePositive = currentValue > 0
   const valuePositive = value && value > 0
   const equalSignValues = currentValuePositive === valuePositive
@@ -56,8 +55,9 @@ const Fraction: React.FC<FractionProps> = ({ size, value }) => {
       // @ts-expect-error - --color-display is a valid css variable
       style={{ '--color-display': colorDisplay }}
       data-valueinrange={valueIsInRange}
+      data-valueheight={size}
       className={cn(
-        `relative w-[1.5px] min-w-[1.5px] ${fractionHeight} [transform:translateZ(0px)] touch-none bg-[var(--color-display)]`,
+        'relative w-[1.5px] min-w-[1.5px] data-[valueheight="1"]:h-[var(--fraction-small-height)] data-[valueheight="2"]:h-[var(--fraction-large-height)] [transform:translateZ(0px)] touch-none bg-[var(--color-display)]',
         'data-[valueinrange="false"]:opacity-50 data-[valueinrange="true"]:opacity-100',
         fragmentClassName
       )}

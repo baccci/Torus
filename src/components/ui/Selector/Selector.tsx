@@ -30,7 +30,7 @@ export const Selector: SelectorComponent = ({
         <span
           data-readytoanimate={readyToAnimate}
           className={cn(
-            'absolute [height:calc(100%-4px)] top-0.5 bg-white/15 data-[readytoanimate="true"]:transition-all data-[readytoanimate="true"]:duration-200 rounded-[10px] ease-out'
+            'absolute [height:calc(100%-4px)] top-0.5 bg-[#292940] data-[readytoanimate="true"]:transition-all data-[readytoanimate="true"]:duration-200 rounded-[10px] ease-out'
           )}
           style={{ left: xCoord, width }}
         />

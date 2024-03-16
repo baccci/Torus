@@ -9,14 +9,22 @@ const defaultConfig = {
   effect: 'normal' as effect
 }
 
-export function useOnMount(callback: () => void, config: Config = defaultConfig) {
+export function useAfterMount(callback: () => (void | (() => void)), deps: unknown[], config: Config = defaultConfig) {
   const hasMounted = React.useRef(false)
   const effectFn = config.effect === 'normal' ? React.useEffect : React.useLayoutEffect
 
   effectFn(() => {
     if (!hasMounted.current) {
       hasMounted.current = true
-      callback()
+      return
     }
-  }, [callback])
+
+    const clean = callback()
+
+    return () => {
+      if (typeof clean === 'function') {
+        clean()
+      }
+    }
+  }, [callback, ...deps])
 }

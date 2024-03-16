@@ -17,15 +17,15 @@ import type { FractionalRangeType, FractionalRangeProps } from './types'
 
 export const FractionalRange: FractionalRangeType = (props) => {
   const {
-    className,
-    label,
     'aria-label': _ariaLabel,
-    max,
-    min,
-    step,
-    sound = false,
     layout = 'none',
-    children
+    sound = false,
+    className,
+    children,
+    label,
+    step,
+    max,
+    min
   } = props
 
   const [wrapperRef, { width: boundsWidth }] = useMeasure()
@@ -49,6 +49,7 @@ export const FractionalRange: FractionalRangeType = (props) => {
       <div
         className={cn(
           'w-full overflow-hidden flex flex-col items-start relative py-6 px-0 bg-black rounded-xl border border-borderblack select-none isolate',
+          '[--fraction-small-height:0.5rem] [--fraction-large-height:0.75rem]',
           className
         )}
         ref={wrapperRef}
@@ -83,22 +84,22 @@ FractionalRange.IndicatorDot = IndicatorDot
 
 function propsInjection(props: FractionalRangeProps & { boundsWidth: number, fractionWidth: number, labelText?: string }) {
   const {
-    className,
+    fragmentClassName: _fragmentClassName,
+    activeColor: _activeColor,
+    'aria-label': _ariaLabel,
+    labelText: _labelText,
+    className: _className,
+    layout: _layout,
+    label: _label,
+    color: _color,
+    sound: _sound,
+    fractionWidth,
+    initialValue,
+    boundsWidth,
+    onChange,
+    step,
     min,
     max,
-    onChange,
-    initialValue,
-    step,
-    boundsWidth,
-    fractionWidth,
-    activeColor,
-    color,
-    label,
-    "aria-label": _ariaLabel,
-    fragmentClassName,
-    labelText,
-    layout,
-    sound,
     ...rest
   } = props
 

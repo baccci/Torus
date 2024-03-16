@@ -35,7 +35,7 @@ export const useItems = ({
     if (selected || !rawItems.length) return
     const firstItem = rawItems[0].props.value
     updateSelected(firstItem)
-  }, 'layout')
+  }, { effect: 'layout' })
 
   const items: typeof rawItems = rawItems.map((item) => {
     const itemValue = item.props.value

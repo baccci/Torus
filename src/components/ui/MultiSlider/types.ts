@@ -1,3 +1,4 @@
+import type React from 'react'
 import type { DetailedHTMLProps } from 'react'
 
 export type MultiSliderProps =
@@ -13,18 +14,18 @@ export type MultiSliderProps =
     arrowKeyMajorStep?: number
   }
 
-export type MultiSliderType = React.FC<MultiSliderProps> & { Slider: React.ForwardRefExoticComponent<Omit<SliderProps, "ref"> & React.RefAttributes<HTMLDivElement>> }
-
 export interface SliderProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  index?: number
-  draggingThis?: boolean
-  childClassName?: string
-  disabled?: boolean
-  min?: number | string
-  max?: number | string
-  isLast?: boolean
-  zIndex?: number
-}
+    index?: number
+    draggingThis?: boolean
+    childClassName?: string
+    disabled?: boolean
+    min?: number | string
+    max?: number | string
+    isLast?: boolean
+    zIndex?: number
+  }
+
+export type MultiSliderType = React.FC<MultiSliderProps> & { Slider: React.ForwardRefExoticComponent<Omit<SliderProps, 'ref'> & React.RefAttributes<HTMLDivElement>> }
 
 export type Width = { width: number }
 export type Widths = Width[]
