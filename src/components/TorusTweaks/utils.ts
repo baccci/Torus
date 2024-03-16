@@ -1,4 +1,4 @@
-import { CHANGE_RATE, HALF_PI } from '@/constants/constants'
+import { CHANGE_RATE, HALF_PI, QUARTER_PI, THREE_QUARTERS_PI } from '@/constants/constants'
 
 /**
  * Converts a coordinate value to its display representation.
@@ -11,7 +11,7 @@ import { CHANGE_RATE, HALF_PI } from '@/constants/constants'
 export const getCoordDisplayValue = (coordValue: number) => {
   if (coordValue > HALF_PI - CHANGE_RATE && coordValue < HALF_PI + CHANGE_RATE) return 'π/2'
   if (coordValue > Math.PI - CHANGE_RATE && coordValue < Math.PI + CHANGE_RATE) return 'π'
-  if (coordValue > 3 * HALF_PI - CHANGE_RATE && coordValue < 3 * HALF_PI + CHANGE_RATE) return '3π/2'
-  if (coordValue > 2 * Math.PI - CHANGE_RATE && coordValue < 2 * Math.PI + CHANGE_RATE) return '2π'
+  if (coordValue > QUARTER_PI - CHANGE_RATE && coordValue < QUARTER_PI + CHANGE_RATE) return 'π/4'
+  if (coordValue > THREE_QUARTERS_PI - CHANGE_RATE && coordValue < THREE_QUARTERS_PI + CHANGE_RATE) return '3π/4'
   return coordValue.toString()
 }
