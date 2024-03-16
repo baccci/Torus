@@ -359,6 +359,16 @@ export class Torus {
     this.draw()
   }
 
+  public setPointSize(pointSize: number) {
+    this.pointSize = pointSize
+    this.createZBuffer()
+    this.draw()
+  }
+
+  public get getPointSize() {
+    return this.pointSize
+  }
+
   public get getPointShape() {
     return this.pointShape
   }

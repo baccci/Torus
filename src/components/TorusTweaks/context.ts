@@ -22,7 +22,8 @@ export const useGestures = (torus: Torus) => {
     setRedChannel,
     setGreenChannel,
     setBlueChannel,
-    setPointShape
+    setPointShape,
+    setPointSize
   } = useTweaks()
 
   const handleChangeFixedPosition = React.useCallback((values: [number, number]) => {
@@ -31,29 +32,6 @@ export const useGestures = (torus: Torus) => {
     torus.setXRotation(values[1])
     torus.setYRotation(values[0])
   }, [setXFixedValue, setYFixedValue, torus])
-
-  /* const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value)
-    if (value > HALF_PI - CHANGE_RATE && value < HALF_PI + CHANGE_RATE) {
-      setXFixedValue(HALF_PI)
-      torus.setXRotation(HALF_PI)
-      return
-    }
-    setXFixedValue(value)
-    torus.setXRotation(value)
-  }
-
-  const handleChangeYFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value)
-
-    if (value > HALF_PI - CHANGE_RATE && value < HALF_PI + CHANGE_RATE) {
-      setYFixedValue(HALF_PI)
-      torus.setYRotation(HALF_PI)
-      return
-    }
-    setYFixedValue(value)
-    torus.setYRotation(value)
-  } */
 
   const handleChangeXMovement = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
@@ -137,6 +115,12 @@ export const useGestures = (torus: Torus) => {
     torus.setPointShape(value as PointShape)
   }
 
+  const handlePointSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value)
+    setPointSize(value)
+    torus.setPointSize(value)
+  }
+
   return {
     torus,
     handleChangeFixedPosition,
@@ -153,7 +137,8 @@ export const useGestures = (torus: Torus) => {
     handleRedChannelChange,
     handleGreenChannelChange,
     handleBlueChannelChange,
-    handlePointShapeChange
+    handlePointShapeChange,
+    handlePointSizeChange
   }
 }
 

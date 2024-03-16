@@ -19,6 +19,7 @@ type TweakStore = {
   greenChannel: [number, number]
   blueChannel: [number, number]
   pointShape: PointShape
+  pointSize: number
   setXFixedValue: (value: number) => void
   setYFixedValue: (value: number) => void
   setXMovement: (value: number) => void
@@ -35,6 +36,7 @@ type TweakStore = {
   setGreenChannel: (value: [number, number]) => void
   setBlueChannel: (value: [number, number]) => void
   setPointShape: (value: PointShape) => void
+  setPointSize: (value: number) => void
 }
 
 export const useTweaks = create<TweakStore>((set) => ({
@@ -54,6 +56,7 @@ export const useTweaks = create<TweakStore>((set) => ({
   greenChannel: [0, 1],
   blueChannel: [0, 1],
   pointShape: 'circle',
+  pointSize: 2,
   setXFixedValue: (value) => set({ xFixedValue: value }),
   setYFixedValue: (value) => set({ yFixedValue: value }),
   setXMovement: (value) => set({ xMovement: value }),
@@ -69,5 +72,6 @@ export const useTweaks = create<TweakStore>((set) => ({
   setRedChannel: (value) => set({ redChannel: value }),
   setGreenChannel: (value) => set({ greenChannel: value }),
   setBlueChannel: (value) => set({ blueChannel: value }),
-  setPointShape: (value) => set({ pointShape: value })
+  setPointShape: (value) => set({ pointShape: value }),
+  setPointSize: (value) => set({ pointSize: value })
 }))

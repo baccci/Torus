@@ -71,7 +71,8 @@ function useInitiateTweaks(torus: TorusModel) {
     setRedChannel,
     setGreenChannel,
     setBlueChannel,
-    setPointShape
+    setPointShape,
+    setPointSize
   } = useTweaks()
 
   useOnMount(() => {
@@ -89,5 +90,6 @@ function useInitiateTweaks(torus: TorusModel) {
     setGreenChannel([torus.getGreenChannel.min, torus.getGreenChannel.max])
     setBlueChannel([torus.getBlueChannel.min, torus.getBlueChannel.max])
     setPointShape(torus.getPointShape)
+    setPointSize(torus.getPointSize)
   }, { effect: 'layout' })
 }

@@ -12,7 +12,8 @@ export const Shape = () => {
     theta,
     phi,
     outerRadius,
-    innerRadius
+    innerRadius,
+    pointSize
   } = useTweaks()
 
   const thetaDisplayValue = (PI * 2 / theta).toFixed(2)
@@ -68,7 +69,20 @@ export const Shape = () => {
             onChange={tweaks.handleInnerRadiusChange}
           />
         </Range.Root>
+      </TweakWrapper>
+      <TweakWrapper>
         <PointShapeSelector />
+        <Range.Root>
+          <Range
+            id='point-size'
+            value={pointSize}
+            min={1}
+            max={8}
+            step={1}
+            label='Point size'
+            onChange={tweaks.handlePointSizeChange}
+          />
+        </Range.Root>
       </TweakWrapper>
     </div>
   )
