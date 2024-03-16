@@ -7,8 +7,8 @@ interface ColorSliderProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLDi
   hue: number
   saturation?: number
   disabled?: boolean
-  onValueChange?: (values: number[]) => void
-  values?: number[]
+  onValueChange?: (values: [number, number]) => void
+  values?: [number, number]
 }
 
 export const ColorSlider: React.FC<ColorSliderProps> = ({
@@ -34,7 +34,7 @@ export const ColorSlider: React.FC<ColorSliderProps> = ({
   usePrintColorsOnMount(values, handleColorChange)
 
   function handleColorChange(values: number[]) {
-    onValueChange && onValueChange(values)
+    onValueChange && onValueChange(values as [number, number])
 
     const { current: slider1 } = sliderRef1
     const { current: slider2 } = sliderRef2
@@ -93,7 +93,7 @@ export const ColorSlider: React.FC<ColorSliderProps> = ({
   )
 }
 
-const usePrintColorsOnMount = (values: number[] | undefined, handleColorChange: (values: number[]) => void) => {
+const usePrintColorsOnMount = (values: [number, number] | undefined, handleColorChange: (values: number[]) => void) => {
   const initialValues = React.useRef(values)
   const initalFunction = React.useRef(handleColorChange)
 

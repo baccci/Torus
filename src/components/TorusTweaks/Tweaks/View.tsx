@@ -2,9 +2,12 @@
 import { TweakWrapper } from './TweakWrapper'
 import { Range } from '@/components/ui/Range'
 import { useTweaksContext } from '../context'
+import { useTweaks } from '@/stores/tweaks'
 
 export const View = () => {
-  const { fieldOfView, distanceTorus, ...tweaks } = useTweaksContext()
+  const { ...tweaks } = useTweaksContext()
+  const { fieldOfView, distanceTorus } = useTweaks()
+
   return (
     <TweakWrapper>
       <Range.Root>

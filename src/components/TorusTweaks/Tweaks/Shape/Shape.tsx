@@ -4,9 +4,16 @@ import { Range } from '@/components/ui/Range'
 import { useTweaksContext } from '../../context'
 import { PI } from '@/constants/constants'
 import { PointShapeSelector } from './PointShapeSelector'
+import { useTweaks } from '@/stores/tweaks'
 
 export const Shape = () => {
-  const { theta, phi, outerRadius, innerRadius, ...tweaks } = useTweaksContext()
+  const { ...tweaks } = useTweaksContext()
+  const {
+    theta,
+    phi,
+    outerRadius,
+    innerRadius
+  } = useTweaks()
 
   const thetaDisplayValue = (PI * 2 / theta).toFixed(2)
   const phiDisplayValue = (PI * 2 / phi).toFixed(2)

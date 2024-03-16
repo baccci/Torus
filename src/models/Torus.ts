@@ -1,6 +1,6 @@
-import type React from 'react'
 import { PI } from '@/constants/constants'
 import { Point } from './Point'
+import type React from 'react'
 import type { PointShape } from '@/types/types'
 
 export interface TorusArgs {
@@ -38,14 +38,14 @@ export class Torus {
   private zBufferSize = 0
   private previousTouch: React.Touch | null = null
   private colored?: boolean
-  private minRed?: number = 60
-  private maxRed?: number = 180
-  private minGreen?: number = 20
-  private maxGreen?: number = 120
-  private minBlue?: number = 120
-  private maxBlue?: number = 220
+  private minRed: number = 60
+  private maxRed: number = 180
+  private minGreen: number = 20
+  private maxGreen: number = 120
+  private minBlue: number = 120
+  private maxBlue: number = 220
   private pointShape: PointShape = 'square'
-  private luminanceEnhance?: number = 1.2
+  private luminanceEnhance: number = 1.2
 
   constructor({
     context,

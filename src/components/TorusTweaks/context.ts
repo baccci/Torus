@@ -1,28 +1,38 @@
-import { CHANGE_RATE, HALF_PI, PI, POINT_SHAPES } from '@/constants/constants'
-import { COLOR_MANAGEMENT_ITEM_VALUES } from './Tweaks/constants'
 import React from 'react'
+import { POINT_SHAPES } from '@/constants/constants'
+import { COLOR_MANAGEMENT_ITEM_VALUES } from './Tweaks/constants'
+import { useTweaks } from '@/stores/tweaks'
 import type Torus from '@/models/Torus'
 import type { PointShape } from '@/types/types'
 
-export const useTweaks = (torus: Torus) => {
-  const [xFixedValue, setXFixedValue] = React.useState(HALF_PI)
-  const [yFixedValue, setYFixedValue] = React.useState(PI)
-  const [xMovement, setXMovement] = React.useState(0)
-  const [yMovement, setYMovement] = React.useState(0)
-  const [theta, setTheta] = React.useState(torus.getThetaIncrement)
-  const [phi, setPhi] = React.useState(torus.getPhiIncrement)
-  const [outerRadius, setOuterRadius] = React.useState(torus.getOuterRadius)
-  const [innerRadius, setInnerRadius] = React.useState(torus.getInnerRadius)
-  const [fieldOfView, setFieldOfView] = React.useState(torus.getFieldOfView)
-  const [distanceTorus, setDistanceTorus] = React.useState(torus.getDistanceTorus)
-  const [luminance, setLuminance] = React.useState(torus.getLuminanceEnhance)
-  const [colored, setColored] = React.useState(false)
-  const [redChannel, setRedChannel] = React.useState([torus.getRedChannel.min, torus.getRedChannel.max])
-  const [greenChannel, setGreenChannel] = React.useState([torus.getGreenChannel.min, torus.getGreenChannel.max])
-  const [blueChannel, setBlueChannel] = React.useState([torus.getBlueChannel.min, torus.getBlueChannel.max])
-  const [pointShape, setPointShape] = React.useState<PointShape>(torus.getPointShape)
+export const useGestures = (torus: Torus) => {
+  const {
+    setXFixedValue,
+    setYFixedValue,
+    setXMovement,
+    setYMovement,
+    setPhi,
+    setTheta,
+    setOuterRadius,
+    setInnerRadius,
+    setFieldOfView,
+    setDistanceTorus,
+    setLuminance,
+    setColored,
+    setRedChannel,
+    setGreenChannel,
+    setBlueChannel,
+    setPointShape
+  } = useTweaks()
 
-  const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeFixedPosition = React.useCallback((values: [number, number]) => {
+    setXFixedValue(values[0])
+    setYFixedValue(values[1])
+    torus.setXRotation(values[1])
+    torus.setYRotation(values[0])
+  }, [setXFixedValue, setYFixedValue, torus])
+
+  /* const handleChangeXFixedValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
     if (value > HALF_PI - CHANGE_RATE && value < HALF_PI + CHANGE_RATE) {
       setXFixedValue(HALF_PI)
@@ -43,7 +53,7 @@ export const useTweaks = (torus: Torus) => {
     }
     setYFixedValue(value)
     torus.setYRotation(value)
-  }
+  } */
 
   const handleChangeXMovement = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value)
@@ -93,31 +103,31 @@ export const useTweaks = (torus: Torus) => {
     torus.setDistanceTorus(value)
   }
 
-  const handleLuminanceChange = (value: number) => {
+  const handleLuminanceChange = React.useCallback((value: number) => {
     setLuminance(value)
     torus.setLuminanceEnhance(value)
-  }
+  }, [setLuminance, torus])
 
-  const handleColoredChange = (value: string) => {
+  const handleColoredChange = React.useCallback((value: string) => {
     const isColored = value === COLOR_MANAGEMENT_ITEM_VALUES[1]
     setColored(isColored)
     torus.setColored(isColored)
-  }
+  }, [setColored, torus])
 
-  const handleRedChannelChange = (value: number[]) => {
+  const handleRedChannelChange = (value: [number, number]) => {
     setRedChannel(value)
     torus.setRedChannel(value[0], value[1])
   }
 
-  const handleGreenChannelChange = (value: number[]) => {
+  const handleGreenChannelChange = React.useCallback((value: [number, number]) => {
     setGreenChannel(value)
     torus.setGreenChannel(value[0], value[1])
-  }
+  }, [setGreenChannel, torus])
 
-  const handleBlueChannelChange = (value: number[]) => {
+  const handleBlueChannelChange = React.useCallback((value: [number, number]) => {
     setBlueChannel(value)
     torus.setBlueChannel(value[0], value[1])
-  }
+  }, [setBlueChannel, torus])
 
   const handlePointShapeChange = (value: string) => {
     const valueExistsInEnum = Object.values(POINT_SHAPES).includes(value as PointShape)
@@ -129,38 +139,7 @@ export const useTweaks = (torus: Torus) => {
 
   return {
     torus,
-    xFixedValue,
-    yFixedValue,
-    xMovement,
-    yMovement,
-    theta,
-    phi,
-    outerRadius,
-    innerRadius,
-    fieldOfView,
-    distanceTorus,
-    luminance,
-    colored,
-    redChannel,
-    greenChannel,
-    blueChannel,
-    pointShape,
-    setColored,
-    setXMovement,
-    setYMovement,
-    setTheta,
-    setPhi,
-    setOuterRadius,
-    setInnerRadius,
-    setFieldOfView,
-    setDistanceTorus,
-    setLuminance,
-    setRedChannel,
-    setGreenChannel,
-    setBlueChannel,
-    setPointShape,
-    handleChangeXFixedValue,
-    handleChangeYFixedValue,
+    handleChangeFixedPosition,
     handleChangeXMovement,
     handleChangeYMovement,
     handleChangeThethaIncrement,
@@ -178,7 +157,7 @@ export const useTweaks = (torus: Torus) => {
   }
 }
 
-export type UseTweaksContext = ReturnType<typeof useTweaks> | null
+export type UseTweaksContext = ReturnType<typeof useGestures> | null
 
 export const TweaksContext = React.createContext<UseTweaksContext>(null)
 

@@ -3,9 +3,12 @@ import { useTweaksContext } from '../../context'
 import { POINT_SHAPES } from '@/constants/constants'
 import { SquareFilledIcon } from '@/components/ui/Icons/SquareFilledIcon'
 import { CircleFilledIcon } from '@/components/ui/Icons/CircleFilledIcon'
+import { useTweaks } from '@/stores/tweaks'
 
 export const PointShapeSelector = () => {
-  const { pointShape, handlePointShapeChange } = useTweaksContext()
+  const { handlePointShapeChange } = useTweaksContext()
+  const { pointShape } = useTweaks()
+
   return (
     <Selector
       label='Point shape'

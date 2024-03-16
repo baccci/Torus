@@ -5,24 +5,27 @@ import { CircleFilledIcon } from '@/components/ui/Icons/CircleFilledIcon'
 import { useTweaksContext } from '../../context'
 import { COLOR_MANAGEMENT_ITEM_VALUES } from '../constants'
 import { Card } from '@/components/ui/Card'
+import { useTweaks } from '@/stores/tweaks'
 
 export const ColorManagement: React.FC = () => {
   const {
     handleColoredChange,
     handleRedChannelChange,
     handleGreenChannelChange,
-    handleBlueChannelChange,
+    handleBlueChannelChange
+  } = useTweaksContext()
+  const {
     redChannel,
     greenChannel,
     blueChannel,
     colored
-  } = useTweaksContext()
+  } = useTweaks()
   const selected = colored ? COLOR_MANAGEMENT_ITEM_VALUES[1] : COLOR_MANAGEMENT_ITEM_VALUES[0]
 
   // Filter the array to remove invalid values so the arrays are always a group of numbers
-  const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
-  const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
-  const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
+  const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
+  const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
+  const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
 
   const ColorComponentDisplay = {
     dynamic: <ColorChannels
@@ -56,12 +59,12 @@ export const ColorManagement: React.FC = () => {
 }
 
 interface ColorChannelsProps {
-  redChannel: number[]
-  greenChannel: number[]
-  blueChannel: number[]
-  handleRedChannelChange: (values: number[]) => void
-  handleGreenChannelChange: (values: number[]) => void
-  handleBlueChannelChange: (values: number[]) => void
+  redChannel: [number, number]
+  greenChannel: [number, number]
+  blueChannel: [number, number]
+  handleRedChannelChange: (values: [number, number]) => void
+  handleGreenChannelChange: (values: [number, number]) => void
+  handleBlueChannelChange: (values: [number, number]) => void
 }
 
 const ColorChannels: React.FC<ColorChannelsProps> = ({
@@ -73,9 +76,9 @@ const ColorChannels: React.FC<ColorChannelsProps> = ({
   handleBlueChannelChange
 }) => {
   // Filter the array to remove invalid values so the arrays are always a group of numbers
-  const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
-  const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
-  const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as number[]
+  const safeRedChannel = redChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
+  const safeGreenChannel = greenChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
+  const safeBlueChannel = blueChannel.filter(v => (v === 0 || v) && v >= 0 && v <= 255) as [number, number]
 
   return (
     <div className='flex flex-col gap-2 w-full'>

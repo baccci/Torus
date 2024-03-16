@@ -2,12 +2,11 @@ import { TweakWrapper } from '../TweakWrapper'
 import { useTweaksContext } from '../../context'
 import { FractionalRange } from '@/components/ui/FractionalRange/FractionalRange'
 import { ColorManagement } from './ColorManagement'
+import { useTweaks } from '@/stores/tweaks'
 
 export const Appearence = () => {
-  const {
-    luminance,
-    ...tweaks
-  } = useTweaksContext()
+  const { ...tweaks } = useTweaksContext()
+  const { luminance } = useTweaks()
 
   return (
     <TweakWrapper>

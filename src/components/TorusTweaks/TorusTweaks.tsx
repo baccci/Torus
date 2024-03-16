@@ -1,23 +1,27 @@
 import React from 'react'
 import { Torus as TorusModel } from '@/models/Torus'
-import { TweaksContext, useTweaks } from './context'
+import { TweaksContext, useGestures } from './context'
 import { NoiseLayer } from './NoiseLayer'
 import { MobileDragMark } from './MobileDragMark'
 import { Position } from './Tweaks/Position'
-import { Shape } from './Tweaks/Shape/Shape'
+import { Shape } from './Tweaks/Shape'
 import { View } from './Tweaks/View'
 import { Tab } from '../ui/Tab/Tab'
 import { Appearence } from './Tweaks/Appearence'
+import { useTweaks } from '@/stores/tweaks'
+import { useOnMount } from '@/hooks/useOnMount'
+import { HALF_PI, PI } from '@/constants/constants'
 
 interface TorusTweaksProps {
   torus: TorusModel
 }
 
 export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
-  const tweaksContext = useTweaks(torus)
+  const tweaksEvents = useGestures(torus)
+  useInitiateTweaks(torus)
 
   return (
-    <TweaksContext.Provider value={tweaksContext}>
+    <TweaksContext.Provider value={tweaksEvents}>
       <section className='max-w-[100%] sm:w-[600px] lg:w-[800px] mt-6 px-4'>
         <div className={`w-full rounded-2xl p-8 sm:p-14 sm:pb-16 relative bg-slate-900/30 overflow-x-hidden
           before:absolute before:mix-blend-overlay before:left-0 before:right-0 before:top-0 before:border-[1px] before:border-white/80 before:[border-bottom:none] before:h-4 before:[border-radius:16px_16px_0_0]
@@ -50,4 +54,40 @@ export const TorusTweaks: React.FC<TorusTweaksProps> = ({ torus }) => {
       </section>
     </TweaksContext.Provider>
   )
+}
+
+function useInitiateTweaks(torus: TorusModel) {
+  const {
+    setXFixedValue,
+    setYFixedValue,
+    setPhi,
+    setTheta,
+    setOuterRadius,
+    setInnerRadius,
+    setFieldOfView,
+    setDistanceTorus,
+    setLuminance,
+    setColored,
+    setRedChannel,
+    setGreenChannel,
+    setBlueChannel,
+    setPointShape
+  } = useTweaks()
+
+  useOnMount(() => {
+    setXFixedValue(HALF_PI)
+    setYFixedValue(HALF_PI)
+    setTheta(torus.getThetaIncrement)
+    setPhi(torus.getPhiIncrement)
+    setOuterRadius(torus.getOuterRadius)
+    setInnerRadius(torus.getInnerRadius)
+    setFieldOfView(torus.getFieldOfView)
+    setDistanceTorus(torus.getDistanceTorus)
+    setLuminance(torus.getLuminanceEnhance)
+    setColored(false)
+    setRedChannel([torus.getRedChannel.min, torus.getRedChannel.max])
+    setGreenChannel([torus.getGreenChannel.min, torus.getGreenChannel.max])
+    setBlueChannel([torus.getBlueChannel.min, torus.getBlueChannel.max])
+    setPointShape(torus.getPointShape)
+  }, { effect: 'layout' })
 }
