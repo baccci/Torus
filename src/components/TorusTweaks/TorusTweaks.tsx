@@ -10,7 +10,7 @@ import { Tab } from '../ui/Tab/Tab'
 import { Appearence } from './Tweaks/Appearence'
 import { useTweaks } from '@/stores/tweaks'
 import { useOnMount } from '@/hooks/useOnMount'
-import { HALF_PI, PI } from '@/constants/constants'
+import { HALF_PI } from '@/constants/constants'
 
 interface TorusTweaksProps {
   torus: TorusModel
