@@ -84,7 +84,7 @@ FractionalRange.IndicatorDot = IndicatorDot
 
 function propsInjection(props: FractionalRangeProps & { boundsWidth: number, fractionWidth: number, labelText?: string }) {
   const {
-    fragmentClassName: _fragmentClassName,
+    fractionClassName: _fragmentClassName,
     activeColor: _activeColor,
     'aria-label': _ariaLabel,
     labelText: _labelText,

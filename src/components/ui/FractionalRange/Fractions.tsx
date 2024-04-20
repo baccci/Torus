@@ -40,7 +40,7 @@ interface FractionProps {
 }
 
 const Fraction: React.FC<FractionProps> = ({ size, value }) => {
-  const { color, activeColor, currentValue, fragmentClassName } = useFractionalRangeContext()
+  const { color, activeColor, currentValue, fractionClassName } = useFractionalRangeContext()
 
   const currentValuePositive = currentValue > 0
   const valuePositive = value && value > 0
@@ -59,7 +59,7 @@ const Fraction: React.FC<FractionProps> = ({ size, value }) => {
       className={cn(
         'relative w-[1.5px] min-w-[1.5px] data-[valueheight="1"]:h-[var(--fraction-small-height)] data-[valueheight="2"]:h-[var(--fraction-large-height)] [transform:translateZ(0px)] touch-none bg-[var(--color-display)]',
         'data-[valueinrange="false"]:opacity-50 data-[valueinrange="true"]:opacity-100',
-        fragmentClassName
+        fractionClassName
       )}
     >
       <FractionValueDisplay

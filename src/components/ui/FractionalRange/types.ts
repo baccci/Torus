@@ -29,7 +29,7 @@ export type FractionalRangeProps = DetailedProps & {
   activeColor?: string
   disabled?: boolean
   sound?: boolean
-  fragmentClassName?: string
+  fractionClassName?: string
   layout?: Layout
 } & LabelProps
 
