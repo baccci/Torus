@@ -1,6 +1,6 @@
 import { TweakWrapper } from '../TweakWrapper'
 import { useTweaksContext } from '../../context'
-import { FractionalRange } from '@/components/ui/FractionalRange/FractionalRange'
+import { FractionalRange } from 'fractionalrange'
 import { ColorManagement } from './ColorManagement'
 import { useTweaks } from '@/stores/tweaks'
 
@@ -21,7 +21,7 @@ export const Appearence = () => {
         activeColor='#ff9646'
         onChange={tweaks.handleLuminanceChange}
         layout='full'
-        sound
+        sound='/tick.mp3'
       />
       <ColorManagement />
     </TweakWrapper>
